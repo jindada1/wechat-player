@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/music/music",
+    "pages/index/index",
+    "pages/search/search",
+    "pages/user/user"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "icons/home.png",
+        "selectedIconPath": "icons/home_.png"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "text": "搜索",
+        "iconPath": "icons/search.png",
+        "selectedIconPath": "icons/search_.png"
+      },
+      {
+        "pagePath": "pages/music/music",
+        "text": "播放",
+        "iconPath": "icons/music.png",
+        "selectedIconPath": "icons/music_.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "icons/user.png",
+        "selectedIconPath": "icons/user_.png"
+      }
+    ],
+    "color": "#8a8a8a",
+    "selectedColor": "#000000"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": ["audio"]
+}

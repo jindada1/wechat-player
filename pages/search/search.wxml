@@ -1,0 +1,7 @@
+<!--pages/search/search.wxml-->
+<view class="container log-list">
+  <button bindtap="Search">search</button>
+  <block wx:for="{{logs}}" wx:key="log" wx:for-item="log">
+    <text class="log-item">{{log}}</text>
+  </block>
+</view>

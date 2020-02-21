@@ -1,0 +1,4 @@
+<!--pages/music/music.wxml-->
+
+<button bindtap="play">播放</button>
+<button bindtap="stop">停止</button>
