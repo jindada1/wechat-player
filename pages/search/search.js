@@ -20,7 +20,7 @@ Page({
       }
     ],
     searchKey: "",
-    searchType: "mv"
+    searchType: "songs"
   },
   onReady() {
     this.song_list = this.selectComponent("#song-list");

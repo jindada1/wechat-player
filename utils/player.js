@@ -32,6 +32,15 @@ export function initPlayer() {
     }
   }
 
+  function findSong(song) {
+    for (let index in list) {
+      if (list[index].idforres === song.idforres) {
+        return index
+      }
+    };
+    return -1
+  }
+
   function myPlayer() {
 
     // 获取播放列表 / 设置新列表
@@ -114,18 +123,29 @@ export function initPlayer() {
       }
     }
 
-    // 添加新歌到歌单
+    // 添加新歌到歌单，但不立即播放
     player.addSong = function (song) {
-      if (list.indexOf(song) === -1) {
+      if (findSong(song) > -1) {
+        wx.showToast({
+          title: '已在歌单里',
+          icon: 'none',
+          duration: 1000
+        })
+      } else {
         list.push(song);
 
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+          duration: 1000
+        })
         listChanged();
       }
     }
 
     // 播放指定音乐（列表里没有就添加进去再播放）
     player.playSong = function (song) {
-      let index = list.indexOf(song);
+      let index = findSong(song);
       if (index === -1) {
         list.push(song);
         index = list.length - 1;
@@ -137,12 +157,28 @@ export function initPlayer() {
 
     // 从播放列表中移除歌曲，参数： index 或 song
     player.delSong = function (index) {
+      if (index < 0 || index > list.length) {
+        return
+      }
+      // index = null 或 undefined 时，设置默认值 0
+      if (index === null || index === undefined) {
+        index = 0
+      }
+      // 参数时 song 时
       if (typeof (index) === "object") {
         index = list.indexOf(index);
       }
+      // 移除
       list.splice(index, 1);
       if (index === current) {
         player.next();
+      }
+      // 更新当前索引
+      else if (index < current) {
+        current--;
+        if (typeof player.onSongChanged === "function") {
+          player.onSongChanged(list[current], current);
+        }
       }
       listChanged();
     }
@@ -150,8 +186,17 @@ export function initPlayer() {
     // 自动播放下一首
     player.onEnded(player.next);
 
+    // IOS 系统音乐播放面板上一首/下一首
+    player.onPrev(player.last);
+    player.onNext(player.next);
+
     // 删除出错歌曲
     player.onError(() => {
+      wx.showToast({
+        title: '版权限制，播放失败',
+        icon: 'none',
+        duration: 1000
+      })
       player.delSong(current);
     })
 

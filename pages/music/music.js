@@ -4,27 +4,41 @@ const player = app.globalData.musicPlayer;
 
 Page({
   data: {
-    index: 0
+    playlist_show: false,
+    playlist: Array
   },
   onLoad: function () {
-    let num = player.songNum();
-    console.log(num);
     player.onSongChanged = (song, index) => {
       console.log(player.current());
     }
+    player.onListChanged = this.updatePlayList
   },
-  onReady: function () {},
+  onReady: function () {
+    this.updatePlayList()
+  },
   control(e) {
     let cmd = e.currentTarget.dataset.cmd;
+    let params = e.currentTarget.dataset.params || null;
+    console.log(cmd, params)
     let commands = {
       last: player.last,
       toggle: player.toggle,
       pause: player.pause,
       next: player.next,
-      changetime: () => {
+      showlist: () => {
+        this.setData({
+          playlist_show: true
+        })
+      },
+      closelist: () => {
+        this.setData({
+          playlist_show: false
+        })
+      },
+      seek: () => {
         player.seek(params);
       },
-      switchsong: () => {
+      switch: () => {
         player.switch(params);
       },
       remove: () => {
@@ -33,4 +47,9 @@ Page({
     };
     commands[cmd]();
   },
+  updatePlayList(){
+    this.setData({
+      playlist: player.list()
+    })
+  }
 })

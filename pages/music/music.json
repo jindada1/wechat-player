@@ -1,4 +1,8 @@
 {
   "navigationBarTitleText": "播放",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-popup": "../../miniprogram_npm/@vant/weapp/popup/index",
+    "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
+    "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index"
+  }
 }

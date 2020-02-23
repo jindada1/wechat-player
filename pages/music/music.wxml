@@ -1,4 +1,20 @@
 <!--pages/music/music.wxml-->
-<button bindtap="control" data-cmd="{{'toggle'}}">播放/暂停</button>
-<button bindtap="control" data-cmd="{{'last'}}">上一首</button>
-<button bindtap="control" data-cmd="{{'next'}}">下一首</button>
+<swiper indicator-dots>
+	<swiper-item>
+		<view>
+			<button bindtap="control" data-cmd="{{'toggle'}}">播放/暂停</button>
+			<button bindtap="control" data-cmd="{{'last'}}">上一首</button>
+			<button bindtap="control" data-cmd="{{'next'}}">下一首</button>
+			<button bindtap="control" data-cmd="{{'showlist'}}">播放列表</button>
+		</view>
+	</swiper-item>
+	<swiper-item>
+		<view>
+		</view>
+	</swiper-item>
+</swiper>
+<van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
+	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap="play" data-item="{{song}}">
+		<van-icon slot="right-icon" name="delete" size="24px" catchtap="control" data-cmd="{{'remove'}}" data-params="{{index}}"/>
+	</van-cell>
+</van-popup>

@@ -14,8 +14,7 @@ Component({
     timeout: 3000,
     timeout_id: Number
   },
-  ready: function () {
-  },
+  ready: function () {},
   methods: {
     setHeight(height) {
       this.setData({
@@ -73,9 +72,49 @@ Component({
     },
     play(e) {
       let song = e.currentTarget.dataset.item;
-      song.lrc = "https://goldenproud.cn" + song.lrc;
-      song.url = "https://goldenproud.cn" + song.url;
-      player.playSong(song);
+
+      if (song.playable) {
+        song.lrc = "https://goldenproud.cn" + song.lrc;
+        song.url = "https://goldenproud.cn" + song.url;
+        player.playSong(song);
+      } else {
+        wx.showToast({
+          title: '版权限制',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    },
+    addToList(e) {
+      let song = e.currentTarget.dataset.song;
+      if (song.playable) {
+        song.lrc = "https://goldenproud.cn" + song.lrc;
+        song.url = "https://goldenproud.cn" + song.url;
+        player.addSong(song);
+      } else {
+        wx.showToast({
+          title: '版权限制',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    },
+    playMV(e) {
+      let mv = e.currentTarget.dataset.song;
+      mv.idforcomments = mv.mvid;
+
+      wx.navigateTo({
+        url: '/pages/mv/mv?id=1',
+        success: function (res) {
+          // 通过eventChannel向被打开页面传送数据
+          res.eventChannel.emit('playMV', mv)
+        }
+      })
+    },
+    love(e) {
+      let song = e.currentTarget.dataset.song;
+      console.log('love')
+      console.log(song)
     }
   }
 })

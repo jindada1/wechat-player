@@ -1,7 +1,15 @@
 <!--components/song-list.wxml-->
 <scroll-view id="scroll-view" style="height:{{height}}" scroll-y bindscrolltolower="nextPage">
-	<van-cell wx:for="{{ songs }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap ="play" data-item="{{song}}">
-		<van-icon slot="right-icon" name="video-o" size="24px" catchtap="playvideo" />
+	<van-cell wx:for="{{ songs }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable bind:click="play" data-item="{{song}}" center>
+		<view class="no-wrap-text" slot="title">
+    	<van-tag wx-if="{{!song.playable}}" type="danger">版权</van-tag>
+			{{ song.name }}
+		</view>
+		<view slot="right-icon">
+			<van-icon style="margin-right:10px;" wx-if="{{song.mvid}}" name="video-o" size="24px" catchtap="playMV" data-song="{{song}}" />
+			<van-icon name="plus" size="24px" catchtap="addToList" data-song="{{song}}" />
+		</view>
+		<van-icon slot="icon" style="margin-right:10px;" name="like-o" size="20px" catchtap="love" data-song="{{song}}" />
 	</van-cell>
 	<we-loading type="circle" show="{{waiting}}"></we-loading>
 </scroll-view>
