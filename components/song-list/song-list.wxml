@@ -1,0 +1,7 @@
+<!--components/song-list.wxml-->
+<scroll-view id="scroll-view" style="height:{{height}}" scroll-y bindscrolltolower="nextPage">
+	<van-cell wx:for="{{ songs }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap ="play" data-item="{{song}}">
+		<van-icon slot="right-icon" name="video-o" size="24px" catchtap="playvideo" />
+	</van-cell>
+	<we-loading type="circle" show="{{waiting}}"></we-loading>
+</scroll-view>

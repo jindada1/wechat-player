@@ -7,17 +7,30 @@ Page({
     index: 0
   },
   onLoad: function () {
-    player.songChanged = (song, index) => {
-      console.log('changed');
-      console.log(song);
-      console.log(index);
+    let num = player.songNum();
+    console.log(num);
+    player.onSongChanged = (song, index) => {
+      console.log(player.current());
     }
   },
   onReady: function () {},
-  play(){
-    player.tryPlay();
+  control(e) {
+    let cmd = e.currentTarget.dataset.cmd;
+    let commands = {
+      last: player.last,
+      toggle: player.toggle,
+      pause: player.pause,
+      next: player.next,
+      changetime: () => {
+        player.seek(params);
+      },
+      switchsong: () => {
+        player.switch(params);
+      },
+      remove: () => {
+        player.delSong(params)
+      }
+    };
+    commands[cmd]();
   },
-  stop(){
-    player.pause();
-  }
 })

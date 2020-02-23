@@ -1,25 +1,9 @@
-import {fetch} from './fetch.js'
+import {
+  fetch
+} from './fetch.js'
 
 
-export function search_() {
-  console.log('search');
-  fetch({
-    url: `/qq/songs`,
-    method: 'get',
-    data: {
-      keyword: '周杰伦',
-      page: 0
-    }
-  }).then(response => {
-      console.log(response)
-      let logs =  (response.data.songs || []).map(song => {
-        console.log(song.name);
-        return song.name
-      });
-      console.log(logs);
-  });
-}
-export function search(platform, type, keyword, page) {
+export function search(platform, type, keyword, page = 0) {
   return fetch({
     url: `/${platform}/${type}`,
     method: 'get',

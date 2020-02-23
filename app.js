@@ -32,7 +32,6 @@ App({
 
     // 创建音乐播放器
     this.globalData.musicPlayer = initPlayer();
-    // wx.setStorageSync('list', list)
   },
   globalData: {
     userInfo: null,

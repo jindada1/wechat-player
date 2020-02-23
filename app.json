@@ -1,13 +1,12 @@
 {
   "pages": [
+    "pages/search/search",
     "pages/music/music",
     "pages/index/index",
-    "pages/search/search",
     "pages/user/user"
   ],
   "tabBar": {
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "icons/home.png",
@@ -41,7 +40,10 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "requiredBackgroundModes": ["audio"]
+  "requiredBackgroundModes": ["audio"],
+
+  "usingComponents": {
+    "van-button": "miniprogram_npm/@vant/weapp/button/index"
+  }
 }

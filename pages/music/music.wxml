@@ -1,4 +1,4 @@
 <!--pages/music/music.wxml-->
-
-<button bindtap="play">播放</button>
-<button bindtap="stop">停止</button>
+<button bindtap="control" data-cmd="{{'toggle'}}">播放/暂停</button>
+<button bindtap="control" data-cmd="{{'last'}}">上一首</button>
+<button bindtap="control" data-cmd="{{'next'}}">下一首</button>

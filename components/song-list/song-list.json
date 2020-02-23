@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
+    "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
+    "we-loading": "../../miniprogram_npm/weui/loading/loading"
+  }
+}

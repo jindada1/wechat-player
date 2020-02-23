@@ -1,0 +1,2 @@
+<!--pages/mv/mv.wxml-->
+<video style="width: 100%;" autoplay id="myVideo" src="{{src}}" controls></video>

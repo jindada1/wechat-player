@@ -1,0 +1,17 @@
+var timeFormatter = function (seconds) {
+  var mins = ('00' + parseInt(seconds / 60).toString()).slice(-2);
+  var secs = ('00' + parseInt(seconds % 60).toString()).slice(-2);
+
+  return mins + ':' + secs;
+}
+
+var changeDomain = function (url) {
+  var arr = url.split("/");
+  var olddomain = arr[0] + "//" + arr[2];
+  return url.replace(olddomain, 'https://goldenproud.cn/redirect/' + mv.platform) + '/';
+}
+
+module.exports = {
+  timeFormatter: timeFormatter,
+  changeDomain: changeDomain
+};

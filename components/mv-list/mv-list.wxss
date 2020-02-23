@@ -1,0 +1,17 @@
+/* components/mv-list.wxss */
+
+.no-wrap-text {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size: 14px;
+}
+
+.sub-text {
+  font-size: 12px !important;
+  color: gray;
+}
+
+.hoverd {
+  background-color: whitesmoke;
+}
