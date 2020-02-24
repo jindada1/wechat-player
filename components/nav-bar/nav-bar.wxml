@@ -1,12 +1,19 @@
 <!--components/nav-bar/nav-bar.wxml-->
 <view class="navbar" style="height:{{height}}px; margin-top:{{top}}px;">
 	<view wx:if="{{music}}">
-		<view class="progress-container" style="height:{{strip}}px;">
-			<view class="progress-content" style="width:{{percent}}%;" />
+		<view wx:if="{{progress}}">
+			<view class="progress-container" style="height:{{strip/2}}px;">
+				<view class="progress-content" style="width:{{progress}}px;" />
+			</view>
+			<view class="safe-area" style="left: {{left}}px; right: {{right}}px" >
+				<view class="no-wrap-text">{{lrc}}</view>
+			</view>
 		</view>
-		<view wx:if="{{lrc}}">
-			<view class="lrc-line">{{lrc}}</view>
+		<view wx:else class="safe-area" style="left: {{left}}px; right: {{right}}px" bindtap="play">
+			<view class="no-wrap-text">
+				<van-icon name="music-o" size="16px"/> {{music.name}}
+				<text class="sub-text">{{music.artist}}</text>
+			</view>
 		</view>
-		<van-icon wx:else name="play-circle-o" size="20px" catchtap="play"/>
 	</view>
 </view>

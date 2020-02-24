@@ -3,17 +3,38 @@
   width: 100%;
   overflow: hidden;
   background: #fff;
+  position: relative;
 }
 
-.progress-container{
+.progress-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: whitesmoke;
 }
 
-.progress-content{
+.progress-content {
   height: 100%;
   background-color: lightgray;
 }
 
-.lrc-line{
+.safe-area {
+  height: 100%;
+  display: flex;
+  position: absolute;
+  align-items: center;
   font-size: 14px;
+}
+
+.no-wrap-text {
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size: 14px;
+}
+
+.sub-text {
+  font-size: 12px;
+  color: lightslategrey;
 }

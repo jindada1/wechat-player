@@ -42,12 +42,14 @@ App({
 
     wx.getSystemInfo({
       complete: (res) => {
-        // console.log(res);
         let statusBarHeight = res.statusBarHeight;
         let menuButtonTop = menuButton.top;
         global.nav.height = menuButton.height + 2 * (menuButtonTop - statusBarHeight);
         global.nav.strip = menuButtonTop - statusBarHeight;
         global.nav.top = statusBarHeight;
+        global.nav.left = res.windowWidth - menuButton.right;
+        global.nav.right = menuButton.width + global.nav.left;
+        global.nav.width = res.safeArea.width;
       },
     })
   },
@@ -57,7 +59,10 @@ App({
     nav: {
       height: 60,
       top: 20,
-      strip: 4
+      strip: 4,
+      left: 10,
+      right: 10,
+      width: 320
     }
   }
 })

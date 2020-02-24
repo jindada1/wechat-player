@@ -6,10 +6,9 @@ Component({
   properties: {
 
   },
-
   data: {
-    percent: Number,
-    lrc: String,
+    progress: Number,
+    lrc: "♩♪ ♫♬♫ ♪♪ ♫",
     music: Object
   },
 
@@ -23,25 +22,40 @@ Component({
       this.setData({
         height: app.globalData.nav.height,
         top: app.globalData.nav.top,
-        strip: app.globalData.nav.strip
+        strip: app.globalData.nav.strip,
+        left: app.globalData.nav.left,
+        right: app.globalData.nav.right,
+        width: app.globalData.nav.width
       })
     }
   },
   pageLifetimes: {
     // 所在页面被展示的时候
     show() {
-      let music = player.current()
-      if (music != null) {
+      let current = player.current()
+      if (current != null) {
         this.setData({
-          music: music
+          music: current.song,
+          lrc: current.lrc
         })
       }
+
+      // 更新当前音乐
+      player.onSongChanged = (song) => {
+        this.setData({
+          music: song
+        })
+      }
+
+      // 更新播放进度
       player.onProgressChanged = (rate) => {
         this.setData({
-          percent: parseInt(rate)
+          progress: parseInt(rate * this.data.width)
         })
       }
-      player.onLyricLineChanged = (lrc, index) => {
+
+      // 更新歌词
+      player.onLyricLineChanged = (lrc) => {
         this.setData({
           lrc: lrc
         })

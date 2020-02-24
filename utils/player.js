@@ -9,9 +9,6 @@ export function initPlayer() {
   // 正在播放的歌曲索引
   let current_index = -1;
 
-  // 当前播放到的秒（整数）
-  let second = 0;
-
   // 当前音乐的歌词 Object
   let _lrcs = [];
 
@@ -166,12 +163,14 @@ export function initPlayer() {
       if (current_index > -1) {
         return {
           index: current_index,
-          song: list[current_index]
+          song: list[current_index],
+          lrc: _lrcs[_lrc_index].c
         }
       } else if (history) {
         return {
           index: history,
-          song: list[history]
+          song: list[history],
+          lrc: ''
         }
       }
       return null;
@@ -317,10 +316,7 @@ export function initPlayer() {
       let now = player.currentTime;
 
       if (typeof player.onProgressChanged === "function") {
-        if (now - second > 1) {
-          second = parseInt(now);
-          player.onProgressChanged(100 * second / player.duration);
-        }
+        player.onProgressChanged(now / player.duration);
       }
 
       if (typeof player.onLyricLineChanged === "function") {
@@ -345,7 +341,7 @@ export function initPlayer() {
     // 当播放列表发生增删时，调用此函数，传参 list
     player.onListChanged = null;
 
-    // 播放进度改变时，调用此函数，每秒钟执行一次，传参 百分率
+    // 播放进度改变时，调用此函数，传参 百分率
     player.onProgressChanged = null;
 
     // 当前播放的歌词改变时，调用此函数，传参 歌词内容
