@@ -5,21 +5,31 @@ const player = app.globalData.musicPlayer;
 Page({
   data: {
     playlist_show: false,
-    playlist: Array
+    playlist: Array,
+    current: Object
   },
   onLoad: function () {
-    player.onSongChanged = (song, index) => {
-      console.log(player.current());
+    player.onListChanged = (list) => {
+      this.setData({
+        playlist: list
+      })
     }
-    player.onListChanged = this.updatePlayList
-    
+    player.onSongChanged = (song) => {
+      this.setData({
+        current: song
+      })
+    }
+
     this.setData({
       navHeight: app.globalData.nav.height,
       navTop: app.globalData.nav.top
     })
   },
   onReady: function () {
-    this.updatePlayList()
+    this.setData({
+      current: player.current().song,
+      playlist: player.list()
+    })
   },
   control(e) {
     let cmd = e.currentTarget.dataset.cmd;
@@ -52,9 +62,9 @@ Page({
     };
     commands[cmd]();
   },
-  updatePlayList(){
-    this.setData({
-      playlist: player.list()
-    })
+  play(e) {
+    let song = e.currentTarget.dataset.song;
+    player.playSong(song)
   }
+
 })

@@ -1,5 +1,8 @@
 <!--components/mv-list.wxml-->
 <scroll-view id="mv-list-scroll" style="height:{{height}}" scroll-y bindscrolltolower="nextPage">
+	<view wx:if="{{!list.length}}" class="contain">
+		<view>搜索MV</view>
+	</view>
 	<wxs src="../../utils/comm.wxs" module="tools" />
 	<view wx:for="{{ list }}" wx:for-item="mv" wx:key="mvid" bindtap="play" data-item="{{mv}}" hover-class="hoverd" style="padding:2px 10px;">
 	    <van-row>

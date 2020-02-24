@@ -8,7 +8,7 @@
 			</van-dropdown-menu>
 		</van-col>
 		<van-col span="20">
-			<van-search placeholder="请输入搜索关键词" bind:change="inputChange" bind:search="Search">
+			<van-search placeholder="歌手、歌曲、专辑等" bind:change="inputChange" bind:search="Search">
 			</van-search>
 		</van-col>
 	</van-row>

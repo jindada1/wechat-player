@@ -15,24 +15,24 @@ export function initPlayer() {
   // 当前正在演唱的歌词 index
   let _lrc_index = -1;
 
-  // 上一次播放的记录
-  let history = null;
-
   // 初始化曾经的状态
   function initialize() {
     // 定位到上一次播放到的歌曲
     if (list.length) {
       let song = wx.getStorageSync('music') || {};
-      history = findSong(song)
+      current_index = findSong(song);
+      console.log(typeof current_index)
+      setSong();
     }
   }
 
-  function setSong(song) {
+  function setSong() {
+    let song = list[current_index]
     player.title = song.name;
     player.epname = song.albumname;
     player.singer = song.artist
     player.coverImgUrl = song.cover;
-    // 设置了 src 之后会自动播放
+    // 设置了 src 之后会自动播放 
     player.src = song.url;
 
     if (song.lrc) {
@@ -57,12 +57,13 @@ export function initPlayer() {
       player.onListChanged(list);
     }
   }
-
+ 
   function findSong(song) {
     try {
       for (let index in list) {
         if (list[index].idforres === song.idforres) {
-          return index
+          // index is string
+          return parseInt(index)
         }
       };
     } catch (error) {
@@ -164,13 +165,7 @@ export function initPlayer() {
         return {
           index: current_index,
           song: list[current_index],
-          lrc: _lrcs[_lrc_index].c
-        }
-      } else if (history) {
-        return {
-          index: history,
-          song: list[history],
-          lrc: ''
+          lrc: _lrc_index > -1 ? _lrcs[_lrc_index].c : ""
         }
       }
       return null;
@@ -185,6 +180,7 @@ export function initPlayer() {
 
     // 根据索引播放指定歌曲
     player.switch = function (index) {
+      console.log(index)
       let length = list.length;
       if (length) {
         // 制造一个双向循环列表
@@ -196,8 +192,7 @@ export function initPlayer() {
         if (index != current_index) {
           // 更新正在播放的歌曲
           current_index = index;
-          let song = list[index]
-          setSong(song);
+          setSong();
         }
       } else {
         player.stop();
@@ -227,7 +222,7 @@ export function initPlayer() {
       }
       // no src, try play list
       else if (list.length) {
-        player.switch(history || 0)
+        player.switch(current_index > -1 ? current_index : 0)
       } else {
         wx.showToast({
           title: '没有音乐',

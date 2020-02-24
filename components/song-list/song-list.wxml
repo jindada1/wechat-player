@@ -1,8 +1,11 @@
 <!--components/song-list.wxml-->
 <scroll-view id="scroll-view" style="height:{{height}}" scroll-y bindscrolltolower="nextPage">
+	<view wx:if="{{!songs.length}}" class="contain">
+		<view>搜索音乐</view>
+	</view>
 	<van-cell wx:for="{{ songs }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable bind:click="play" data-item="{{song}}" center>
 		<view class="no-wrap-text" slot="title">
-    	<van-tag wx-if="{{!song.playable}}" type="danger">版权</van-tag>
+			<van-tag wx-if="{{!song.playable}}" type="danger">版权</van-tag>
 			{{ song.name }}
 		</view>
 		<view slot="right-icon">

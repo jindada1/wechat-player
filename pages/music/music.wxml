@@ -16,7 +16,8 @@
 	</swiper-item>
 </swiper>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
-	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap="play" data-item="{{song}}">
-		<van-icon slot="right-icon" name="delete" size="24px" catchtap="control" data-cmd="{{'remove'}}" data-params="{{index}}" />
+	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">
+		<van-icon wx:if="{{current.idforres === song.idforres}}" slot="right-icon" size="24px" name="service" />
+		<van-icon wx:else slot="right-icon" name="delete" size="24px" catchtap="control" data-cmd="{{'remove'}}" data-params="{{index}}" />
 	</van-cell>
 </van-popup>
