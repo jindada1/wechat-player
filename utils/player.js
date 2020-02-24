@@ -1,14 +1,34 @@
 export function initPlayer() {
 
-  // 初始化音频播放器
+  // 创建音频播放器
   let player = wx.getBackgroundAudioManager();
 
   // 读取本地缓存的歌单
   let list = wx.getStorageSync('list') || [];
 
   // 正在播放的歌曲索引
-  let current = -1;
+  let current_index = -1;
 
+  // 当前播放到的秒（整数）
+  let second = 0;
+
+  // 当前音乐的歌词 Object
+  let _lrcs = [];
+
+  // 当前正在演唱的歌词 index
+  let _lrc_index = -1;
+
+  // 上一次播放的记录
+  let history = null;
+
+  // 初始化曾经的状态
+  function initialize() {
+    // 定位到上一次播放到的歌曲
+    if (list.length) {
+      let song = wx.getStorageSync('music') || {};
+      history = findSong(song)
+    }
+  }
 
   function setSong(song) {
     player.title = song.name;
@@ -18,8 +38,17 @@ export function initPlayer() {
     // 设置了 src 之后会自动播放
     player.src = song.url;
 
+    if (song.lrc) {
+      initLrc(song.lrc)
+    }
+    songChanged()
+  }
+
+  function songChanged() {
+    wx.setStorageSync('music', list[current_index])
+
     if (typeof player.onSongChanged === "function") {
-      player.onSongChanged(song, current);
+      player.onSongChanged(list[current_index]);
     }
   }
 
@@ -33,12 +62,85 @@ export function initPlayer() {
   }
 
   function findSong(song) {
-    for (let index in list) {
-      if (list[index].idforres === song.idforres) {
-        return index
-      }
-    };
+    try {
+      for (let index in list) {
+        if (list[index].idforres === song.idforres) {
+          return index
+        }
+      };
+    } catch (error) {
+      return -1
+    }
     return -1
+  }
+
+  function initLrc(url) {
+    wx.request({
+      url,
+      method: 'GET',
+      success: (result) => {
+        // console.log(result);
+        _lrcs = createLrcObj(result.data)
+      },
+      fail: (err) => {
+        console.log('获取歌词失败');
+      }
+    })
+  }
+
+  function createLrcObj(lrc) {
+    if (lrc.length == 0) return [{
+      t: 0,
+      c: '没有歌词 (。・∀・)ノ'
+    }];
+
+    var lrcList = [];
+    var offset = 0;
+    var lrcs = lrc.split('\n'); //用回车拆分成数组
+
+    for (var i in lrcs) { //遍历歌词数组
+      lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
+      var t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]")); //取[]间的内容
+      var s = t.split(":"); // 分离:前后文字
+
+      // 获取时间偏移
+      if (isNaN(parseInt(s[0]))) {
+        if (s[0].toLowerCase() === "offset")
+          offset = s[1];
+      }
+      // 提取歌词
+      else {
+        // 提取时间字段，可能有多个
+        var arr = lrcs[i].match(/\[(\d+:.+?)\]/g);
+        var start = 0;
+        for (var k in arr) {
+          // 计算歌词位置
+          start += arr[k].length;
+        }
+
+        // 获取歌词内容
+        var content = lrcs[i].substring(start);
+        if (content) {
+          for (var k in arr) {
+            // 取[]间的内容
+            var t = arr[k].substring(1, arr[k].length - 1);
+            // 分离:前后文字
+            var s = t.split(":");
+            // 对象{t:时间,c:歌词}加入ms数组
+            lrcList.push({
+              t: (parseFloat(s[0]) * 60 + parseFloat(s[1]) + parseFloat(offset)).toFixed(3),
+              c: content
+            });
+          }
+        }
+      }
+    }
+    // 按时间顺序排序
+    lrcList.sort(function (a, b) {
+      return a.t - b.t;
+    });
+
+    return lrcList;
   }
 
   function myPlayer() {
@@ -61,12 +163,25 @@ export function initPlayer() {
 
     // 获取当前正在播放的音乐
     player.current = () => {
-      if (current > -1) {
+      if (current_index > -1) {
         return {
-          index: current,
-          song: list[current]
+          index: current_index,
+          song: list[current_index]
+        }
+      } else if (history) {
+        return {
+          index: history,
+          song: list[history]
         }
       }
+      return null;
+    }
+
+    // 获取歌词数组
+    player.lyric = () => {
+      return _lrcs.map(lrc => {
+        return lrc.c
+      })
     }
 
     // 根据索引播放指定歌曲
@@ -79,26 +194,26 @@ export function initPlayer() {
         }
         index = index % length
 
-        if (index != current) {
+        if (index != current_index) {
           // 更新正在播放的歌曲
-          current = index;
+          current_index = index;
           let song = list[index]
           setSong(song);
         }
       } else {
         player.stop();
-        current = -1;
+        current_index = -1;
       }
     }
 
     // 上一首
     player.last = function () {
-      player.switch(current - 1);
+      player.switch(current_index - 1);
     }
 
     // 下一首
     player.next = function () {
-      player.switch(current + 1);
+      player.switch(current_index + 1);
     }
 
     // 播放/暂停
@@ -113,7 +228,7 @@ export function initPlayer() {
       }
       // no src, try play list
       else if (list.length) {
-        player.switch(0)
+        player.switch(history || 0)
       } else {
         wx.showToast({
           title: '没有音乐',
@@ -170,15 +285,12 @@ export function initPlayer() {
       }
       // 移除
       list.splice(index, 1);
-      if (index === current) {
+      if (index === current_index) {
         player.next();
       }
       // 更新当前索引
-      else if (index < current) {
-        current--;
-        if (typeof player.onSongChanged === "function") {
-          player.onSongChanged(list[current], current);
-        }
+      else if (index < current_index) {
+        current_index--;
       }
       listChanged();
     }
@@ -186,7 +298,7 @@ export function initPlayer() {
     // 自动播放下一首
     player.onEnded(player.next);
 
-    // IOS 系统音乐播放面板上一首/下一首
+    // 系统音乐播放面板上一首/下一首
     player.onPrev(player.last);
     player.onNext(player.next);
 
@@ -197,7 +309,34 @@ export function initPlayer() {
         icon: 'none',
         duration: 1000
       })
-      player.delSong(current);
+      player.delSong(current_index);
+    })
+
+    // 正在播放时
+    player.onTimeUpdate(() => {
+      let now = player.currentTime;
+
+      if (typeof player.onProgressChanged === "function") {
+        if (now - second > 1) {
+          second = parseInt(now);
+          player.onProgressChanged(100 * second / player.duration);
+        }
+      }
+
+      if (typeof player.onLyricLineChanged === "function") {
+        // 从第一句开始
+        let id = 0;
+
+        for (let index in _lrcs) {
+          if (_lrcs[index].t < now) id = index
+          else break;
+        };
+
+        if (_lrc_index != id) {
+          player.onLyricLineChanged(_lrcs[id].c, id);
+          _lrc_index = id;
+        }
+      }
     })
 
     // 当前播放的歌曲发生变化时，调用此函数，传参 song，index
@@ -206,8 +345,15 @@ export function initPlayer() {
     // 当播放列表发生增删时，调用此函数，传参 list
     player.onListChanged = null;
 
+    // 播放进度改变时，调用此函数，每秒钟执行一次，传参 百分率
+    player.onProgressChanged = null;
+
+    // 当前播放的歌词改变时，调用此函数，传参 歌词内容
+    player.onLyricLineChanged = null;
+
     return player;
   }
 
+  initialize();
   return myPlayer();
 }

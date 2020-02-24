@@ -12,6 +12,11 @@ Page({
       console.log(player.current());
     }
     player.onListChanged = this.updatePlayList
+    
+    this.setData({
+      navHeight: app.globalData.nav.height,
+      navTop: app.globalData.nav.top
+    })
   },
   onReady: function () {
     this.updatePlayList()

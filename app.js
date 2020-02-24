@@ -1,8 +1,11 @@
-import { initPlayer } from "utils/player.js";
+import {
+  initPlayer
+} from "utils/player.js";
 
 //app.js
 App({
   onLaunch: function () {
+    let global = this.globalData;
     // 登录
     wx.login({
       success: res => {
@@ -17,7 +20,7 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+              global.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -31,10 +34,30 @@ App({
     })
 
     // 创建音乐播放器
-    this.globalData.musicPlayer = initPlayer();
+    global.musicPlayer = initPlayer();
+
+    // 获取导航栏相关信息
+    let menuButton = wx.getMenuButtonBoundingClientRect();
+    // console.log(menuButton);
+
+    wx.getSystemInfo({
+      complete: (res) => {
+        // console.log(res);
+        let statusBarHeight = res.statusBarHeight;
+        let menuButtonTop = menuButton.top;
+        global.nav.height = menuButton.height + 2 * (menuButtonTop - statusBarHeight);
+        global.nav.strip = menuButtonTop - statusBarHeight;
+        global.nav.top = statusBarHeight;
+      },
+    })
   },
   globalData: {
     userInfo: null,
-    musicPlayer: null
+    musicPlayer: null,
+    nav: {
+      height: 60,
+      top: 20,
+      strip: 4
+    }
   }
 })

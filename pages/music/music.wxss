@@ -6,3 +6,7 @@ page {
 swiper {
   height: 100%;
 }
+
+.nav-area {
+  text-align: center;
+}

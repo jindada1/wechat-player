@@ -1,6 +1,7 @@
 <!--index.wxml-->
-<view class="container">
-  <view>
-    Home
-  </view>
+<nav-bar></nav-bar>
+<view>
+	<view>
+		Home
+	</view>
 </view>

@@ -1,4 +1,5 @@
 <!--pages/search/search.wxml-->
+<nav-bar></nav-bar>
 <view>
 	<van-row>
 		<van-col span="4">

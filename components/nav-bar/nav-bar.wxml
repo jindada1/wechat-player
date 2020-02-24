@@ -1,0 +1,12 @@
+<!--components/nav-bar/nav-bar.wxml-->
+<view class="navbar" style="height:{{height}}px; margin-top:{{top}}px;">
+	<view wx:if="{{music}}">
+		<view class="progress-container" style="height:{{strip}}px;">
+			<view class="progress-content" style="width:{{percent}}%;" />
+		</view>
+		<view wx:if="{{lrc}}">
+			<view class="lrc-line">{{lrc}}</view>
+		</view>
+		<van-icon wx:else name="play-circle-o" size="20px" catchtap="play"/>
+	</view>
+</view>

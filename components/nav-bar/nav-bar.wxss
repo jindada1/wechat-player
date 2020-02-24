@@ -1,0 +1,19 @@
+/* components/nav-bar/nav-bar.wxss */
+.navbar {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.progress-container{
+  background-color: whitesmoke;
+}
+
+.progress-content{
+  height: 100%;
+  background-color: lightgray;
+}
+
+.lrc-line{
+  font-size: 14px;
+}
