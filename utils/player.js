@@ -180,7 +180,6 @@ export function initPlayer() {
 
     // 根据索引播放指定歌曲
     player.switch = function (index) {
-      console.log(index)
       let length = list.length;
       if (length) {
         // 制造一个双向循环列表

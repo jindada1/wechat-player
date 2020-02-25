@@ -50,6 +50,7 @@ App({
         global.nav.left = res.windowWidth - menuButton.right;
         global.nav.right = menuButton.width + global.nav.left;
         global.nav.width = res.safeArea.width;
+        global.nav.safeHeight = res.windowHeight - statusBarHeight - global.nav.height;
       },
     })
   },
@@ -62,7 +63,8 @@ App({
       strip: 4,
       left: 10,
       right: 10,
-      width: 320
+      width: 320,
+      safeHeight: 520
     }
   }
 })

@@ -1,4 +1,8 @@
 // pages/music/music.js
+import {
+  getComment
+} from '../../utils/api.js'
+
 const app = getApp();
 const player = app.globalData.musicPlayer;
 
@@ -9,32 +13,70 @@ Page({
     current: Object
   },
   onLoad: function () {
+    this.setData({
+      navHeight: app.globalData.nav.height,
+      navTop: app.globalData.nav.top,
+      cmtHeight: app.globalData.nav.safeHeight
+    })
+
+    player.onPause(() => {
+      this.setData({
+        paused: true
+      })
+    })
+
+    player.onPlay(() => {
+      this.setData({
+        paused: false
+      })
+    })
+  },
+  onShow: function () {
+
+    let song = player.current().song
+    this.setData({
+      current: song,
+      playlist: player.list(),
+      paused: player.paused
+    })
+
+    this.getComments(song);
+
     player.onListChanged = (list) => {
       this.setData({
         playlist: list
       })
     }
+
     player.onSongChanged = (song) => {
+      console.log('onSongChanged')
       this.setData({
         current: song
       })
+      this.getComments(song)
     }
 
-    this.setData({
-      navHeight: app.globalData.nav.height,
-      navTop: app.globalData.nav.top
-    })
+    // 更新播放进度
+    player.onProgressChanged = (rate) => {
+      this.setData({
+        progress: parseInt(rate * 100)
+      })
+    }
   },
-  onReady: function () {
-    this.setData({
-      current: player.current().song,
-      playlist: player.list()
-    })
+  getComments(song) {
+    if (song) {
+      let _this = this;
+      getComment(song.platform, song.idforcomments, 'song').then((response) => {
+        this.setData({
+          comments: response.data.hot.comments
+        })
+      })
+    }
   },
   control(e) {
     let cmd = e.currentTarget.dataset.cmd;
     let params = e.currentTarget.dataset.params || null;
-    console.log(cmd, params)
+
     let commands = {
       last: player.last,
       toggle: player.toggle,

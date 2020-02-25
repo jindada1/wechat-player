@@ -4,6 +4,11 @@
     "van-popup": "../../miniprogram_npm/@vant/weapp/popup/index",
     "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
     "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
+    "van-row": "../../miniprogram_npm/@vant/weapp/row/index",
+    "van-col": "../../miniprogram_npm/@vant/weapp/col/index",
+    "van-image": "../../miniprogram_npm/@vant/weapp/image/index",
+    "van-slider": "../../miniprogram_npm/@vant/weapp/slider/index",
+    "van-divider": "../../miniprogram_npm/@vant/weapp/divider/index",
     "nav-bar": "../../components/nav-bar/nav-bar"
   }
 }
