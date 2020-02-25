@@ -21,7 +21,6 @@ export function initPlayer() {
     if (list.length) {
       let song = wx.getStorageSync('music') || {};
       current_index = findSong(song);
-      console.log(typeof current_index)
       setSong();
     }
   }

@@ -3,6 +3,8 @@ import {
   search
 } from '../../utils/api.js'
 
+const global = getApp().globalData;
+
 Page({
   data: {
     platform: 'qq',
@@ -29,17 +31,12 @@ Page({
     let _this = this;
     const query = this.createSelectorQuery();
     query.select('#tab-content').boundingClientRect(function (rect) {
-      wx.getSystemInfo({
-        success: function (res) {
-          // 获取可使用窗口宽度
-          let clientHeight = res.windowHeight;
-          // 到底部的距离
-          let scroller_height = clientHeight - rect.top;
 
-          _this.song_list.setHeight(scroller_height.toString() + 'px');
-          _this.mv_list.setHeight(scroller_height.toString() + 'px');
-        }
-      })
+      // 到底部的距离 = 屏幕高度 - 控件 top
+      let scroller_height = global.window.height - rect.top;
+
+      _this.song_list.setHeight(scroller_height.toString() + 'px');
+      _this.mv_list.setHeight(scroller_height.toString() + 'px');
     })
     query.exec()
   },

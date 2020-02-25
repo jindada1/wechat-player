@@ -16,7 +16,7 @@ Page({
     this.setData({
       navHeight: app.globalData.nav.height,
       navTop: app.globalData.nav.top,
-      cmtHeight: app.globalData.nav.safeHeight
+      cmtHeight: app.globalData.window.safeHeight
     })
 
     player.onPause(() => {
