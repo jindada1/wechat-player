@@ -5,13 +5,13 @@
 			<view class="progress-container" style="height:{{strip/2}}px;">
 				<view class="progress-content" style="width:{{progress}}px;" />
 			</view>
-			<view class="safe-area" style="left: {{left}}px; right: {{right}}px" >
+			<view class="safe-area" style="left: {{left}}px; right: {{right}}px">
 				<view class="no-wrap-text">{{lrc}}</view>
 			</view>
 		</view>
 		<view wx:else class="safe-area" style="left: {{left}}px; right: {{right}}px" bindtap="play">
 			<view class="no-wrap-text">
-				<van-icon name="music-o" size="16px"/> {{music.name}}
+				<van-icon name="music-o" size="16px" /> {{music.name}}
 				<text class="sub-text">{{music.artist}}</text>
 			</view>
 		</view>

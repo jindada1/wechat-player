@@ -1,1 +1,45 @@
 /* pages/mv/mv.wxss */
+
+.nav-area {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.left-capsule {
+  float: left;
+}
+
+.user-name {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.comment {
+  color: gray;
+  font-size: 14px;
+  padding: 10px 10px 10px 0;
+}
+
+.info {
+  font-size: 12px;
+  color: lightgray;
+}
+
+.contain {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  font-size: 14px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+.comments-area {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

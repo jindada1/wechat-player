@@ -1,2 +1,32 @@
 <!--pages/mv/mv.wxml-->
-<video style="width: 100%;" autoplay id="myVideo" src="{{src}}" controls></video>
+<view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
+	<view style="text-align: center; width: 100%">
+		<view class="left-capsule">
+			<van-icon name="arrow-left" size="24" catchtap="backward" />
+		</view>
+		<view>{{mv.name}}</view>
+	</view>
+</view>
+<video style="width: 100%;" autoplay id="video" src="{{mv.src}}" controls></video>
+<view class="comments-area" style="top:{{cmtTop}}px">
+	<view wx:if="{{!comments.length}}" class="contain">
+		<van-loading type="spinner" size="24px">正在获取评论...</van-loading>
+	</view>
+	<scroll-view style="height: 100%" scroll-y>
+		<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
+			<van-col span="4" style="text-align: center;">
+				<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
+			</van-col>
+			<van-col span="20">
+				<view class="user-name">{{comment.username}}</view>
+				<view class="comment">{{comment.content}}</view>
+				<view class="info">{{comment.time}}
+					<view style="float:right; margin-right:10px;color:black">{{comment.stars}}
+						<van-icon name="../../../../icons/thumb.svg" size="14px" />
+					</view>
+				</view>
+			</van-col>
+			<van-divider hairline />
+		</van-row>
+	</scroll-view>
+</view>

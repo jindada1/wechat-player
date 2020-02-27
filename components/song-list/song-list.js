@@ -74,8 +74,6 @@ Component({
       let song = e.currentTarget.dataset.item;
 
       if (song.playable) {
-        song.lrc = "https://goldenproud.cn" + song.lrc;
-        song.url = "https://goldenproud.cn" + song.url;
         player.playSong(song);
       } else {
         wx.showToast({
@@ -88,8 +86,8 @@ Component({
     addToList(e) {
       let song = e.currentTarget.dataset.song;
       if (song.playable) {
-        song.lrc = "https://goldenproud.cn" + song.lrc;
-        song.url = "https://goldenproud.cn" + song.url;
+        song.lrc = song.lrc;
+        song.url = song.url;
         player.addSong(song);
       } else {
         wx.showToast({

@@ -20,8 +20,8 @@ export function initPlayer() {
     // 定位到上一次播放到的歌曲
     if (list.length) {
       let song = wx.getStorageSync('music') || {};
-      current_index = findSong(song);
-      setSong();
+      var index = findSong(song);
+      player.switch(index);
     }
   }
 
@@ -35,6 +35,8 @@ export function initPlayer() {
     player.src = song.url;
 
     if (song.lrc) {
+      // 清空上一首歌的歌词
+      _lrcs = [];
       initLrc(song.lrc)
     }
     songChanged()
@@ -56,7 +58,7 @@ export function initPlayer() {
       player.onListChanged(list);
     }
   }
- 
+
   function findSong(song) {
     try {
       for (let index in list) {
@@ -80,7 +82,11 @@ export function initPlayer() {
         _lrcs = createLrcObj(result.data)
       },
       fail: (err) => {
-        console.log('获取歌词失败');
+        wx.showToast({
+          title: '获取歌词失败，请检查网络连接',
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   }
@@ -126,7 +132,7 @@ export function initPlayer() {
             // 对象{t:时间,c:歌词}加入ms数组
             lrcList.push({
               t: (parseFloat(s[0]) * 60 + parseFloat(s[1]) + parseFloat(offset)).toFixed(3),
-              c: content
+              c: content.replace(/&apos;/g, "'")
             });
           }
         }
@@ -138,6 +144,34 @@ export function initPlayer() {
     });
 
     return lrcList;
+  }
+
+  function _listadd(song) {
+    let backend = 'https://goldenproud.cn';
+    let keys = ['url', 'cover', 'lrc'];
+
+    keys.forEach((key) => {
+      if (song[key][0] === '/') {
+        song[key] = backend + song[key];
+      }
+    });
+
+    list.push(song);
+    listChanged();
+  }
+
+  function waitForLyric(callback, trytime = 5) {
+    // 没有歌词就再等一段时间，有 5 次重试的机会
+    if (_lrcs.length === 0 && trytime > 0) {
+      // 前三次都是等待 400ms，后两次等待 1600 和 2000 ms，一共允许等待 4.8 秒
+      var wait = trytime > 2 ? 400 : (6 - trytime) * 400;
+      setTimeout(() => {
+        waitForLyric(callback, trytime - 1)
+      }, wait);
+    }
+    // 有歌词或者超过等待时间就回调
+    else
+      callback(_lrcs)
   }
 
   function myPlayer() {
@@ -170,15 +204,24 @@ export function initPlayer() {
       return null;
     }
 
-    // 获取歌词数组
-    player.lyric = () => {
-      return _lrcs.map(lrc => {
-        return lrc.c
-      })
+    // 获取歌词数组，歌词请求过程是异步的，可能界面调用这个函数但是歌词还没有解析完毕，所以要传入一个回调等待
+    player.lyric = (callback = null) => {
+      if (typeof callback === 'function') {
+        if (_lrcs.length > 0) {
+          callback(_lrcs);
+        } else
+          waitForLyric(callback);
+      }
+      else
+        return _lrcs;
     }
 
     // 根据索引播放指定歌曲
     player.switch = function (index) {
+      // 重复点击的时候不会重新播放
+      console.log(index, current_index)
+      if (index === current_index) return;
+
       let length = list.length;
       if (length) {
         // 制造一个双向循环列表
@@ -187,11 +230,10 @@ export function initPlayer() {
         }
         index = index % length
 
-        if (index != current_index) {
-          // 更新正在播放的歌曲
-          current_index = index;
-          setSong();
-        }
+        // 更新索引
+        current_index = index;
+        setSong();
+
       } else {
         player.stop();
         current_index = -1;
@@ -239,14 +281,12 @@ export function initPlayer() {
           duration: 1000
         })
       } else {
-        list.push(song);
-
+        _listadd(song);
         wx.showToast({
           title: '添加成功',
           icon: 'success',
           duration: 1000
         })
-        listChanged();
       }
     }
 
@@ -254,10 +294,8 @@ export function initPlayer() {
     player.playSong = function (song) {
       let index = findSong(song);
       if (index === -1) {
-        list.push(song);
+        _listadd(song);
         index = list.length - 1;
-
-        listChanged();
       }
       player.switch(index);
     }
@@ -273,10 +311,12 @@ export function initPlayer() {
       }
       // 参数时 song 时
       if (typeof (index) === "object") {
-        index = list.indexOf(index);
+        index = findSong(index);
       }
       // 移除
       list.splice(index, 1);
+      listChanged();
+
       if (index === current_index) {
         player.next();
       }
@@ -284,7 +324,6 @@ export function initPlayer() {
       else if (index < current_index) {
         current_index--;
       }
-      listChanged();
     }
 
     // 自动播放下一首
@@ -312,7 +351,7 @@ export function initPlayer() {
         player.onProgressChanged(now / player.duration);
       }
 
-      if (typeof player.onLyricLineChanged === "function") {
+      if (typeof player.onLyricLineChanged === "function" && _lrcs.length > 0) {
         // 从第一句开始
         let id = 0;
 
@@ -340,9 +379,9 @@ export function initPlayer() {
     // 当前播放的歌词改变时，调用此函数，传参 歌词内容
     player.onLyricLineChanged = null;
 
+    initialize();
     return player;
   }
 
-  initialize();
   return myPlayer();
 }

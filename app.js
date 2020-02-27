@@ -77,7 +77,7 @@ App({
       width: 320
     },
     window: {
-      safeHeight: 460,
+      contentHeight: 460,
       height: 520
     }
   }
