@@ -12,7 +12,8 @@ Component({
     pageLength: 20,
     waiting: false,
     timeout: 3000,
-    timeout_id: Number
+    timeout_id: Number,
+    filter: false
   },
   ready: function () {},
   methods: {
@@ -113,6 +114,14 @@ Component({
       let song = e.currentTarget.dataset.song;
       console.log('love')
       console.log(song)
+    },
+    playlist() {
+      player.list(this.data.songs)
+    },
+    filtercr() {
+      this.setData({
+        filter: !this.data.filter
+      })
     }
   }
 })

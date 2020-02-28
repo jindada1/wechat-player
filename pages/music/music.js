@@ -13,7 +13,9 @@ Page({
     current: Object,
     currentPage: 0,
     lrcHeight: 40,
-    notouch: true
+    notouch: true,
+    navHeight: 40,
+    navTop: 20
   },
   onLoad: function () {
 
@@ -33,13 +35,13 @@ Page({
 
     player.onPause(() => {
       this.setData({
-        paused: true
+        playing: false
       })
     })
 
     player.onPlay(() => {
       this.setData({
-        paused: false
+        playing: true
       })
     })
   },
@@ -58,7 +60,8 @@ Page({
       this.setData({
         current: current.song,
         playlist: player.list(),
-        paused: player.paused
+        playing: player.isPlaying(),
+        progress: parseInt(current.percent * 100)
       })
 
       this.initUI(current.song);
@@ -72,7 +75,6 @@ Page({
     }
 
     player.onSongChanged = (song) => {
-      console.log('onSongChanged')
       this.setData({
         current: song,
       })
@@ -101,8 +103,22 @@ Page({
   getComments(song) {
     if (song) {
       getComment(song.platform, song.idforcomments, 'song').then((response) => {
+        let cmts = response.data.hot.comments.concat(response.data.normal.comments)
         this.setData({
-          comments: response.data.hot.comments
+          comments: cmts,
+          cmtPage: 0
+        })
+      })
+    }
+  },
+  nextCmtPage() {
+    if (this.data.comments) {
+      let song = this.data.current;
+      getComment(song.platform, song.idforcomments, 'song', this.data.cmtPage + 1).then((response) => {
+        let cmts = response.data.hot.comments.concat(response.data.normal.comments)
+        this.setData({
+          comments: this.data.comments.concat(cmts),
+          cmtPage: this.data.cmtPage + 1
         })
       })
     }

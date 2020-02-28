@@ -1,6 +1,6 @@
 <!--pages/music/music.wxml-->
 <view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
-	<view style="text-align: center; width: 100%">
+	<view style="text-align: center; width: 100%; font-size: 14px">
 		{{current.name}}
 	</view>
 	<view class="indicator">
@@ -14,9 +14,9 @@
 			<view class="album">
 				<van-image round width="12rem" height="12rem" src="{{current.cover}}" />
 			</view>
-			<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container" style="line-height: {{lrcHeight}}px;">
+			<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
 				<view style="height: 50%"></view>
-				<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}">
+				<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="height: {{lrcHeight}}px;{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}">
 					{{lrc.c}}
 				</view>
 			</scroll-view>
@@ -27,7 +27,6 @@
 				<view class="col">
 					<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
 				</view>
-				<!-- <view class="col" /> -->
 			</view>
 		</view>
 		<view class="controls" id="controls">
@@ -47,8 +46,8 @@
 					<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
 				</view>
 				<view class="col">
-					<van-icon wx:if="{{paused}}" name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
-					<van-icon wx:else name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+					<van-icon wx:if="{{playing}}" name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+					<van-icon wx:else name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
 				</view>
 				<view class="col">
 					<van-icon name="../../../../icons/next.svg" bindtap="control" size="36" data-cmd="{{'next'}}" />
@@ -63,7 +62,7 @@
 		<view wx:if="{{!comments.length}}" class="contain">
 			<van-loading type="spinner" size="24px">正在获取评论...</van-loading>
 		</view>
-		<scroll-view style="height: 100%" scroll-y>
+		<scroll-view style="height: 100%" scroll-y bindscrolltolower="nextCmtPage">
 			<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
 				<van-col span="4" style="text-align: center;">
 					<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
@@ -83,6 +82,7 @@
 	</swiper-item>
 </swiper>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
+	<view style="padding: 15px;">播放列表 - {{playlist.length}} 首</view>
 	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">
 		<van-icon wx:if="{{current.idforres === song.idforres}}" color="red" slot="right-icon" size="24px" name="service" />
 		<van-icon wx:else slot="right-icon" name="delete" size="24px" catchtap="control" data-cmd="{{'remove'}}" data-params="{{index}}" />

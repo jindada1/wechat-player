@@ -36,7 +36,8 @@ Component({
       if (current != null) {
         this.setData({
           music: current.song,
-          lrc: current.lrc
+          lrc: current.lrc,
+          progress: parseInt(current.percent * this.data.width)
         })
       }
 

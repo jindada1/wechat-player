@@ -4,7 +4,7 @@ import {
   getComment
 } from '../../utils/api.js'
 
-const app = getApp();
+const global = getApp().globalData;
 
 Page({
   data: {
@@ -17,9 +17,9 @@ Page({
     query.select('#video').boundingClientRect(function (rect) {
       // 高度 = 内容高度 - 播放器高度
       _this.setData({
-        navHeight: app.globalData.nav.height,
-        navTop: app.globalData.nav.top,
-        cmtTop: app.globalData.nav.height + app.globalData.nav.top + rect.height
+        navHeight: global.nav.height,
+        navTop: global.nav.top,
+        cmtTop: global.nav.height + global.nav.top + rect.height
       })
     })
     query.exec()
@@ -40,7 +40,7 @@ Page({
       })
     })
 
-    app.globalData.musicPlayer.pause();
+    global.musicPlayer.pause();
   },
   backward() {
     var pages = getCurrentPages(); //当前页面

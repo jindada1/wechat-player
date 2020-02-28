@@ -81,7 +81,7 @@ swiper {
   color: gray;
   font-size: 14px;
   overflow: hidden;
-  line-height: 40px;
+  line-height: 20px;
   text-align: center;
   mask-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, hsla(0, 0%, 100%, .6) 15%, #fff 25%, #fff 75%, hsla(0, 0%, 100%, .6) 85%, hsla(0, 0%, 100%, 0));
 }
@@ -94,10 +94,12 @@ swiper {
 }
 
 .lrc-line {
-  width: 100%;
+  margin: 0 10px;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .progress-container {

@@ -7,7 +7,7 @@ const global = getApp().globalData;
 
 Page({
   data: {
-    platform: 'qq',
+    platform: 'wangyi',
     platforms: [{
         text: 'QQ',
         value: 'qq'

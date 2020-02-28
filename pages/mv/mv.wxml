@@ -1,10 +1,10 @@
 <!--pages/mv/mv.wxml-->
 <view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
 	<view style="text-align: center; width: 100%">
-		<view class="left-capsule">
-			<van-icon name="arrow-left" size="24" catchtap="backward" />
-		</view>
 		<view>{{mv.name}}</view>
+	</view>
+	<view class="left-capsule">
+		<van-icon name="arrow-left" size="24" catchtap="backward" />
 	</view>
 </view>
 <video style="width: 100%;" autoplay id="video" src="{{mv.src}}" controls></video>

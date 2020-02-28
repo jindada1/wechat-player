@@ -25,12 +25,13 @@ export function getMV(platform, mvid) {
   })
 }
 
-export function getComment(platform, idforcomments, type) {
+export function getComment(platform, idforcomments, type, page = 0) {
   return fetch({
     url: `/${platform}/comments/${type}`,
     method: 'GET',
     data: {
-      idforcomments
+      idforcomments,
+      page
     }
   })
 }

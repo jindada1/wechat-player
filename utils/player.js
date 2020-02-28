@@ -15,6 +15,9 @@ export function initPlayer() {
   // 当前正在演唱的歌词 index
   let _lrc_index = -1;
 
+  // 小程序规范：不能自动播放
+  let canplay = false;
+
   // 初始化曾经的状态
   function initialize() {
     // 定位到上一次播放到的歌曲
@@ -31,8 +34,11 @@ export function initPlayer() {
     player.epname = song.albumname;
     player.singer = song.artist
     player.coverImgUrl = song.cover;
-    // 设置了 src 之后会自动播放 
-    player.src = song.url;
+    // 设置了 src 之后会自动播放
+    // console.log(canplay)
+    if (canplay) {
+      player.src = song.url;
+    }
 
     if (song.lrc) {
       // 清空上一首歌的歌词
@@ -179,9 +185,12 @@ export function initPlayer() {
     // 获取播放列表 / 设置新列表
     player.list = function (newlist = null) {
       if (newlist) {
-        list = newlist;
+        list = [];
+        for (let id in newlist) {
+          if (newlist[id].playable) _listadd(newlist[id]);
+        }
+        canplay = true;
         player.switch(0);
-
         listChanged();
       }
       return list
@@ -198,7 +207,8 @@ export function initPlayer() {
         return {
           index: current_index,
           song: list[current_index],
-          lrc: _lrc_index > -1 ? _lrcs[_lrc_index].c : ""
+          lrc: _lrc_index > -1 ? _lrcs[_lrc_index].c : "",
+          percent: (player.currentTime / player.duration).toFixed(3)
         }
       }
       return null;
@@ -211,15 +221,21 @@ export function initPlayer() {
           callback(_lrcs);
         } else
           waitForLyric(callback);
-      }
-      else
+      } else
         return _lrcs;
+    }
+
+    player.isPlaying = () => {
+      if (player.paused === undefined) {
+        return false
+      }
+      return !player.paused;
     }
 
     // 根据索引播放指定歌曲
     player.switch = function (index) {
+      // console.log(canplay)
       // 重复点击的时候不会重新播放
-      console.log(index, current_index)
       if (index === current_index) return;
 
       let length = list.length;
@@ -260,10 +276,18 @@ export function initPlayer() {
           player.pause();
         }
       }
-      // no src, try play list
+      // no src, first try to play history
+      else if (current_index > -1) {
+        canplay = true;
+        player.src = list[current_index].url;
+      }
+      // then try to play first song in list
       else if (list.length) {
-        player.switch(current_index > -1 ? current_index : 0)
-      } else {
+        canplay = true;
+        player.switch(0)
+      }
+      // list 为空, 也没有历史缓存
+      else {
         wx.showToast({
           title: '没有音乐',
           icon: 'none',
@@ -297,6 +321,7 @@ export function initPlayer() {
         _listadd(song);
         index = list.length - 1;
       }
+      playable = true;
       player.switch(index);
     }
 

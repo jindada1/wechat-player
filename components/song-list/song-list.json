@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
+    "van-switch": "../../miniprogram_npm/@vant/weapp/switch/index",
+    "van-sticky": "../../miniprogram_npm/@vant/weapp/sticky/index",
     "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
     "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
     "van-tag": "../../miniprogram_npm/@vant/weapp/tag/index",
