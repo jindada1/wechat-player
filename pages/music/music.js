@@ -15,7 +15,10 @@ Page({
     lrcHeight: 40,
     notouch: true,
     navHeight: 40,
-    navTop: 20
+    navTop: 20,
+    waiting: false,
+    timeout: 3000,
+    timeout_id: Number
   },
   onLoad: function () {
 
@@ -114,11 +117,27 @@ Page({
   nextCmtPage() {
     if (this.data.comments) {
       let song = this.data.current;
+
+      // 设置超时
+      let id = setTimeout(() => {
+        this.setData({
+          waiting: false
+        });
+      }, this.data.timeout);
+
+      // 不重复请求
+      this.setData({
+        waiting: true,
+        timeout_id: id
+      });
+
       getComment(song.platform, song.idforcomments, 'song', this.data.cmtPage + 1).then((response) => {
         let cmts = response.data.hot.comments.concat(response.data.normal.comments)
+        clearTimeout(this.data.timeout_id)
         this.setData({
           comments: this.data.comments.concat(cmts),
-          cmtPage: this.data.cmtPage + 1
+          cmtPage: this.data.cmtPage + 1,
+          waiting: false
         })
       })
     }
@@ -188,7 +207,8 @@ Page({
 
   },
   playMV(e) {
-    let mv = this.data.current;
+    // 深拷贝一个 mv ，否则会变动原来的 idforcomments
+    let mv = JSON.parse(JSON.stringify(this.data.current));
     mv.idforcomments = mv.mvid;
 
     wx.navigateTo({

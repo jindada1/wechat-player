@@ -69,7 +69,18 @@ Page({
     let key = event.detail;
     let platform = this.data.platform;
     let type = this.data.searchType;
-
+    switch (type) {
+      case "songs":
+        this.setData({
+          searchingSong: true
+        })
+        break;
+      case "mv":
+        this.setData({
+          searchingMV: true
+        })
+        break;
+    }
     search(platform, type, key).then(response => {
       this.setData({
         searchKey: event.detail
@@ -77,9 +88,15 @@ Page({
       switch (type) {
         case "songs":
           this.song_list.set(response.data.songs || []);
+          this.setData({
+            searchingSong: false
+          })
           break;
         case "mv":
           this.mv_list.set(response.data.videos || []);
+          this.setData({
+            searchingMV: false
+          })
           break;
       }
     });

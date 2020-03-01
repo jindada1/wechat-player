@@ -78,6 +78,7 @@
 				</van-col>
 				<van-divider hairline />
 			</van-row>
+			<we-loading type="circle" show="{{waiting}}"></we-loading>
 		</scroll-view>
 	</swiper-item>
 </swiper>

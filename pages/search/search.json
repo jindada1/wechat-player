@@ -1,14 +1,15 @@
 {
   "usingComponents": {
-    "van-search": "../../miniprogram_npm/@vant/weapp/search/index",
     "van-dropdown-menu": "../../miniprogram_npm/@vant/weapp/dropdown-menu/index",
     "van-dropdown-item": "../../miniprogram_npm/@vant/weapp/dropdown-item/index",
+    "van-search": "../../miniprogram_npm/@vant/weapp/search/index",
+    "van-tabs": "../../miniprogram_npm/@vant/weapp/tabs/index",
     "van-row": "../../miniprogram_npm/@vant/weapp/row/index",
     "van-col": "../../miniprogram_npm/@vant/weapp/col/index",
     "van-tab": "../../miniprogram_npm/@vant/weapp/tab/index",
-    "van-tabs": "../../miniprogram_npm/@vant/weapp/tabs/index",
     "song-list": "../../components/song-list/song-list",
     "mv-list": "../../components/mv-list/mv-list",
-    "nav-bar": "../../components/nav-bar/nav-bar"
+    "nav-bar": "../../components/nav-bar/nav-bar",
+    "we-loading": "../../miniprogram_npm/weui/loading/loading"
   }
 }

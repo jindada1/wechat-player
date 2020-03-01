@@ -12,7 +12,7 @@
 	<view wx:if="{{!comments.length}}" class="contain">
 		<van-loading type="spinner" size="24px">正在获取评论...</van-loading>
 	</view>
-	<scroll-view style="height: 100%" scroll-y>
+	<scroll-view style="height: 100%" scroll-y bindscrolltolower="nextCmtPage">
 		<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
 			<van-col span="4" style="text-align: center;">
 				<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
@@ -28,5 +28,6 @@
 			</van-col>
 			<van-divider hairline />
 		</van-row>
+		<we-loading type="circle" show="{{waiting}}"></we-loading>
 	</scroll-view>
 </view>

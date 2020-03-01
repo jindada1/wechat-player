@@ -321,7 +321,7 @@ export function initPlayer() {
         _listadd(song);
         index = list.length - 1;
       }
-      playable = true;
+      canplay = true;
       player.switch(index);
     }
 

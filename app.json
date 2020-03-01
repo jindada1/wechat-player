@@ -2,17 +2,10 @@
   "pages": [
     "pages/search/search",
     "pages/music/music",
-    "pages/index/index",
     "pages/user/user"
   ],
   "tabBar": {
     "list": [{
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "icons/home.png",
-        "selectedIconPath": "icons/home_.png"
-      },
-      {
         "pagePath": "pages/search/search",
         "text": "搜索",
         "iconPath": "icons/search.png",

@@ -15,9 +15,15 @@
 	<van-tabs animated active="{{ searchType }}" bind:change="typeChange">
 		<van-tab title="音乐" name="songs" id="tab-content">
 			<song-list id="song-list" bind:nextpage="getNext"></song-list>
+			<view class="loading-area" wx:if="{{searchingSong}}">
+				<we-loading type="circle" tips="搜索中"></we-loading>
+			</view>
 		</van-tab>
 		<van-tab title="MV" name="mv">
 			<mv-list id="mv-list" bind:nextpage="getNext"></mv-list>
+			<view class="loading-area" wx:if="{{searchingMV}}">
+				<we-loading type="circle" tips="搜索中"></we-loading>
+			</view>
 		</van-tab>
 	</van-tabs>
 </view>
