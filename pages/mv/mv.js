@@ -12,10 +12,11 @@ Page({
     navTop: 20,
     waiting: false,
     timeout: 3000,
-    timeout_id: Number
+    timeout_id: Number,
+    navHeight: 40,
+    navTop: 20
   },
   onLoad: function () {
-    console.log('load mv')
     let _this = this;
     const query = this.createSelectorQuery();
     query.select('#video').boundingClientRect(function (rect) {
@@ -32,6 +33,13 @@ Page({
 
     eventChannel.on('playMV', function (mv) {
       getMV(mv.platform, mv.mvid).then(response => {
+        if (response.data.error) {
+          wx.showToast({
+            title: '这个平台没有版权哦＞﹏＜',
+            icon: 'none',
+            duration: 1000
+          })
+        }
         mv.src = response.data.uri;
         _this.setData({
           mv: mv,

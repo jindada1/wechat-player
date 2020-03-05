@@ -1,0 +1,37 @@
+/* pages/playlist/playlist.wxss */
+.listinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20rpx 20rpx 50rpx 20rpx;
+}
+
+.listinfo-avatar {
+  margin: 0 20rpx 0 0;
+}
+
+.listinfo-nickname {
+  font-weight: bold;
+}
+
+.listinfo-txt {
+  flex: 1;
+  overflow: hidden;
+}
+
+.listinfo-openid {
+  color: gray;
+  margin-top: 20rpx;
+}
+
+.options {
+  display: flex;
+  padding: 4px 10px;
+  align-items: center;
+  background-color: white;
+}
+
+.option {
+  padding: 0 4px;
+  font-size: 14px;
+}

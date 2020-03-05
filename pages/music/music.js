@@ -5,6 +5,7 @@ import {
 
 const app = getApp();
 const player = app.globalData.musicPlayer;
+const db = app.globalData.DB;
 
 Page({
   data: {
@@ -219,20 +220,7 @@ Page({
       }
     })
   },
-  download() {
-    console.log(this.data.current.url)
-    const downloadTask = wx.downloadFile({
-      url: this.data.current.url,
-      complete: (res) => {
-        console.log('complete')
-      },
-      success: (result) => {
-        var filePath = result.tempFilePath;
-        console.log(filePath)
-      },
-    })
-    downloadTask.onProgressUpdate((res) => {
-      console.log(res.progress);
-    })
+  love() {
+    db.love(this.data.current)
   }
 })

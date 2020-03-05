@@ -1,16 +1,4 @@
 /* pages/mv/mv.wxss */
-
-.nav-area {
-  display: flex;
-  position: relative;
-  align-items: center;
-}
-
-.left-capsule {
-  position: absolute;
-  display: flex;  
-}
-
 .user-name {
   width: 100%;
   overflow: hidden;

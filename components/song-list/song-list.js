@@ -1,6 +1,7 @@
 // components/song-list.js
 const app = getApp();
 const player = app.globalData.musicPlayer;
+const db = app.globalData.DB;
 
 Component({
   properties: {
@@ -111,9 +112,7 @@ Component({
       })
     },
     love(e) {
-      let song = e.currentTarget.dataset.song;
-      console.log('love')
-      console.log(song)
+      db.love(e.currentTarget.dataset.song)
     },
     playlist() {
       player.list(this.data.songs)

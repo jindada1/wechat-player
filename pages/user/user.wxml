@@ -1,11 +1,20 @@
 <!--pages/user/user.wxml-->
 <nav-bar></nav-bar>
-<view class="container">
-	<view class="userinfo">
-		<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-		<block wx:else>
-			<image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-			<text class="userinfo-nickname">{{userInfo.nickName}}</text>
-		</block>
-	</view>
+
+<view class="userinfo">
+	<button wx:if="{{!userInfo}}" bindtap="login"> 获取头像昵称 </button>
+	<block wx:else>
+		<image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+		<view class="userinfo-txt">
+			<view class="userinfo-nickname">{{userInfo.nickName}}</view>
+			<view class="userinfo-openid no-wrap-text">openid: {{openid}}</view>
+		</view>
+	</block>
 </view>
+
+<van-grid column-num="4" gutter="10" square="{{ true }}" clickable>
+	<van-grid-item icon="like-o"  text="我的收藏" bind:click="mylove"/>
+	<van-grid-item icon="music-o" text="其它平台" />
+	<van-grid-item icon="bar-chart-o" text="听歌数据" />
+	<van-grid-item icon="clock-o" text="定时关闭" />
+</van-grid>

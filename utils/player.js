@@ -6,6 +6,9 @@ export function initPlayer() {
   // 读取本地缓存的歌单
   let list = wx.getStorageSync('list') || [];
 
+  // 播放列表里最多的歌曲数
+  let MAX_NUM = 80;
+
   // 正在播放的歌曲索引
   let current_index = -1;
 
@@ -161,7 +164,14 @@ export function initPlayer() {
         song[key] = backend + song[key];
       }
     });
-
+    if (list.length >= MAX_NUM) {
+      wx.showToast({
+        title: '播放列表超过上限，替换了【' + list[0].name + '】',
+        icon: 'none',
+        duration: 2000
+      })
+      player.delSong(0);
+    }
     list.push(song);
     listChanged();
   }
@@ -186,6 +196,7 @@ export function initPlayer() {
     player.list = function (newlist = null) {
       if (newlist) {
         list = [];
+        newlist = newlist.slice(0, MAX_NUM);
         for (let id in newlist) {
           if (newlist[id].playable) _listadd(newlist[id]);
         }

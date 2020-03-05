@@ -1,8 +1,27 @@
 /**app.wxss**/
-.container {
+
+/* 覆盖van-cell__title */
+.van-cell__title {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 导航栏 */
+.nav-area {
   display: flex;
-  flex-direction: column;
+  position: relative;
   align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
+  background-color: white;
+}
+
+.left-capsule {
+  display: flex;
+  margin-left: 10px;
+}
+
+.no-wrap-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
 }

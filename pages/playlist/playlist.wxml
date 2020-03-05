@@ -1,0 +1,41 @@
+<!--pages/playlist/playlist.wxml-->
+
+<van-sticky>
+	<view class="nav-area" style="height:{{navHeight}}px; padding-top:{{navTop}}px;">
+		<view class="left-capsule">
+			<van-icon name="arrow-left" size="24" catchtap="backward" />
+			{{navText}}
+		</view>
+	</view>
+</van-sticky>
+
+<view class="listinfo">
+	<van-image width="48px" height="48px" class="listinfo-avatar" src="{{listinfo.pic}}" use-loading-slot />
+	<view class="listinfo-txt">
+		<view class="listinfo-nickname">{{listinfo.name}}</view>
+		<view class="listinfo-openid no-wrap-text">{{playlist.length}} 首</view>
+	</view>
+</view>
+
+<van-sticky offset-top="{{ navHeight + navTop }}" bindscroll="scrolling">
+	<view class="options">
+		<view class="option" bindtap="playall" style="height: 22px;">
+			<van-icon name="play-circle-o" size="22" />
+		</view>
+		<view class="option" bindtap="playall">播放全部</view>
+		<view class="option" style="font-size:12px; color:gray">-{{playlist.length}}</view>
+		<view wx:if="{{listid === 0}}" class="option" style="flex-grow: 1; text-align:right">长按移除</view>
+	</view>
+</van-sticky>
+
+<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" bind:tap="play" bind:longtap="hateSong" bind:touchend="touchend" data-item="{{song}}" center clickable>
+	<view class="no-wrap-text" slot="title">
+		{{ song.name }}
+	</view>
+	<view slot="right-icon">
+		<van-icon style="margin-right:10px;" wx:if="{{song.mvid}}" name="video-o" size="24px" catchtap="playMV" data-song="{{song}}" />
+		<van-icon name="plus" size="24px" catchtap="addToList" data-song="{{song}}" />
+	</view>
+</van-cell>
+
+<van-dialog id="van-dialog" />

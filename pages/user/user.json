@@ -2,6 +2,8 @@
   "navigationBarTitleText": "我的",
   "usingComponents": {
     "nav-bar": "../../components/nav-bar/nav-bar",
+    "van-grid": "../../miniprogram_npm/@vant/weapp/grid/index",
+    "van-grid-item": "../../miniprogram_npm/@vant/weapp/grid-item/index",
     "we-loading": "../../miniprogram_npm/weui/loading/loading"
   }
 }

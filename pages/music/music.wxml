@@ -36,12 +36,9 @@
 				</van-slider>
 			</view>
 			<view class="buttons">
-				<!-- <view class="col" style="position: relative;">
-					<van-icon name="../../../../icons/download.svg" size="24" catchtap="download" />
-					<view class="progress-container">
-						<view class="progress-content" style="width:30%;" />
-					</view>
-				</view> -->
+				<view class="col">
+					<van-icon name="like-o" size="24" bindtap="love"/>
+				</view>
 				<view class="col">
 					<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
 				</view>
@@ -83,8 +80,12 @@
 	</swiper-item>
 </swiper>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
-	<view style="padding: 15px;">播放列表 - {{playlist.length}} 首</view>
-	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" title="{{ song.name }}" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">
+	<view style="padding: 15px;">播放列表 - {{playlist.length || 0}} 首</view>
+	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">
+		<view class="no-wrap-text" slot="title">
+			<van-tag wx:if="{{!song.playable}}" type="danger">版权</van-tag>
+			{{ song.name }}
+		</view>
 		<van-icon wx:if="{{current.idforres === song.idforres}}" color="red" slot="right-icon" size="24px" name="service" />
 		<van-icon wx:else slot="right-icon" name="delete" size="24px" catchtap="control" data-cmd="{{'remove'}}" data-params="{{index}}" />
 	</van-cell>

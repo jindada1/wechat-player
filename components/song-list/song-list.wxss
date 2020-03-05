@@ -1,6 +1,5 @@
 /* components/song-list.wxss */
 .no-wrap-text {
-  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
