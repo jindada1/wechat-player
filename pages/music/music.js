@@ -23,19 +23,11 @@ Page({
   },
   onLoad: function () {
 
-    let _this = this;
-    const query = this.createSelectorQuery();
-    query.select('#controls').boundingClientRect(function (rect) {
-      // 高度 = 屏幕高度 - 控制区高度
-      let window_height = app.globalData.window.contentHeight - rect.height;
-      _this.setData({
-        navHeight: app.globalData.nav.height,
-        navTop: app.globalData.nav.top,
-        cmtHeight: app.globalData.window.contentHeight,
-        displayHeight: window_height
-      })
+    this.setData({
+      navHeight: app.globalData.nav.height,
+      navTop: app.globalData.nav.top,
+      cmtHeight: app.globalData.window.contentHeight
     })
-    query.exec()
 
     player.onPause(() => {
       this.setData({
