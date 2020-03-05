@@ -1,19 +1,28 @@
 <!--components/nav-bar/nav-bar.wxml-->
 <view class="navbar" style="height:{{height}}px; margin-top:{{top}}px;">
-	<view wx:if="{{music}}">
-		<view wx:if="{{progress}}">
+	<block wx:if="{{music}}">
+		<!-- 进度条 -->
+		<block wx:if="{{progress}}">
 			<view class="progress-container" style="height:{{strip/2}}px;">
 				<view class="progress-content" style="width:{{progress}}px;" />
 			</view>
-			<view class="safe-area" style="left: {{left}}px; right: {{right}}px">
-				<view class="no-wrap-text">{{lrc}}</view>
+		</block>
+		<!-- 文本图片显示区域 -->
+		<view class="safe-area" style="left: {{left}}px; right: {{right}}px" bindtap="toggle">
+			<!-- 专辑封面 -->
+			<view class="cover-holder">
+				<van-image radius="3" width="100%" height="100%" src="{{music.cover}}" />
+				<view class="status">
+					<van-icon wx:if="{{playing}}" name="pause-circle-o" />
+					<van-icon wx:else name="play-circle-o" />
+				</view>
 			</view>
-		</view>
-		<view wx:else class="safe-area" style="left: {{left}}px; right: {{right}}px" bindtap="play">
-			<view class="no-wrap-text">
-				<van-icon name="music-o" size="16px" /> {{music.name}}
+			<!-- 歌词或歌曲信息 -->
+			<view wx:if="{{progress}}" class="no-wrap-text">{{lrc}}</view>
+			<view wx:else class="no-wrap-text">
+				{{music.name}}
 				<text class="sub-text">{{music.artist}}</text>
 			</view>
 		</view>
-	</view>
+	</block>
 </view>

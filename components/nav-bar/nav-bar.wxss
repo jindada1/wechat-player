@@ -24,17 +24,31 @@
   position: absolute;
   align-items: center;
   font-size: 14px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .no-wrap-text {
-  width: 100%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
 }
 
 .sub-text {
   font-size: 12px;
   color: lightslategrey;
+}
+
+.cover-holder {
+  height: 30px;
+  width: 30px;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+.status {
+  position: absolute;
+  top: 12px;
+  left: 8px;
 }

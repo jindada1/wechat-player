@@ -9,11 +9,11 @@ Component({
   data: {
     progress: Number,
     lrc: "♩♪ ♫♬♫ ♪♪ ♫",
-    music: Object
+    music: Object,
   },
 
   methods: {
-    play() {
+    toggle() {
       player.toggle();
     }
   },
@@ -37,7 +37,8 @@ Component({
         this.setData({
           music: current.song,
           lrc: current.lrc,
-          progress: parseInt(current.percent * this.data.width)
+          progress: parseInt(current.percent * this.data.width),
+          playing: player.isPlaying()
         })
       }
 
@@ -61,6 +62,18 @@ Component({
           lrc: lrc
         })
       }
+
+      player.onPause(() => {
+        this.setData({
+          playing: false
+        })
+      })
+
+      player.onPlay(() => {
+        this.setData({
+          playing: true
+        })
+      })
     }
   }
 })
