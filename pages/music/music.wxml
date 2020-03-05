@@ -26,12 +26,12 @@
 		<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
 	</view>
 </view>
-<view style="height:20px; padding: 0 10px">
+<view style="padding: 0 20px">
 	<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="drag" bind:change="change" bind:drag-end="dragend">
 		<view class="slider-numb" slot="button"> </view>
 	</van-slider>
 </view>
-<view class="buttons" style="margin: 5% 0;">
+<view class="buttons" style="margin: 20px 0 30px 0;">
 	<view class="col">
 		<van-icon name="../../../../icons/comment.svg" bindtap="viewComments" size="20" />
 	</view>
