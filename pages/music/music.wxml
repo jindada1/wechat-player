@@ -12,7 +12,7 @@
 	<swiper-item>
 		<view style="height:{{displayHeight}}px">
 			<view class="album">
-				<van-image round width="12rem" height="12rem" src="{{current.cover}}" />
+				<van-image width="12rem" height="12rem" src="{{current.cover}}" />
 			</view>
 			<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
 				<view style="height: 50%"></view>

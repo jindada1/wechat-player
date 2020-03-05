@@ -23,7 +23,7 @@
 			<van-icon name="play-circle-o" size="22" />
 		</view>
 		<view class="option" bindtap="playall">播放全部</view>
-		<view class="option" style="font-size:12px; color:gray">-{{playlist.length}}</view>
+		<view class="option" style="font-size:12px; color:gray">{{playlist.length}}</view>
 		<view wx:if="{{listid === 0}}" class="option" style="flex-grow: 1; text-align:right">长按移除</view>
 	</view>
 </van-sticky>

@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/music/music",
-    "pages/user/user",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/user/user"
   ],
   "tabBar": {
     "list": [{

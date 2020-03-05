@@ -3,12 +3,11 @@
 	<view wx:if="{{!songs.length}}" class="contain">
 		<view>搜索音乐</view>
 	</view>
-	<van-sticky wx:else>
-		<view class="options">
-			<view class="option" bindtap="playlist">播放全部🎵</view>
-			<view class="option" bindtap="filtercr">⏳过滤版权</view>
-		</view>
-	</van-sticky>
+	<view wx:else class="options">
+		<view class="option" bindtap="playlist">播放全部</view>
+		<view class="option" style="color: gray">——</view>
+		<view class="option" bindtap="filtercr">过滤版权</view>
+	</view>
 	<van-cell wx:for="{{ songs }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable bind:click="play" data-item="{{song}}" wx:if="{{ !filter || song.playable }}" center>
 		<view class="no-wrap-text" slot="title">
 			<van-tag wx:if="{{!song.playable}}" type="danger">版权</van-tag>

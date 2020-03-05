@@ -17,14 +17,21 @@
 }
 
 .options {
-  background-color: white;
-  align-items: center;
-  padding: 3px 16px;
+  border: solid 2px lightgray;
+  background-color: white;  
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 10px 0;
+  position: fixed;
   font-size: 14px;
   display: flex;
+  bottom: 20px;
+  width: 40px;
+  right: 20px;
+  z-index: 2;
 }
 
 .option {
-  flex-grow: 1;
   text-align: center;
 }
