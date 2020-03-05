@@ -51,7 +51,7 @@ Page({
   },
   mylove() {
     wx.navigateTo({
-      url: '/pages/playlist/playlist',
+      url: '/pages/sub/playlist/playlist',
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
         res.eventChannel.emit('getList', 0)

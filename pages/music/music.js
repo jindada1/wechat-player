@@ -205,7 +205,7 @@ Page({
     mv.idforcomments = mv.mvid;
 
     wx.navigateTo({
-      url: '/pages/mv/mv?id=1',
+      url: '/pages/sub/mv/mv?id=1',
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
         res.eventChannel.emit('playMV', mv)

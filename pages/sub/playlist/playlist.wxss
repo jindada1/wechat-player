@@ -1,4 +1,4 @@
-/* pages/playlist/playlist.wxss */
+/* pages/sub/playlist/playlist.wxss */
 .listinfo {
   display: flex;
   flex-direction: row;

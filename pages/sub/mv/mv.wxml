@@ -1,4 +1,4 @@
-<!--pages/mv/mv.wxml-->
+<!--pages/sub/mv/mv.wxml-->
 <view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
 	<view class="left-capsule">
 		<van-icon name="arrow-left" size="24" catchtap="backward" />

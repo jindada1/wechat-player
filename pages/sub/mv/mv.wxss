@@ -1,4 +1,4 @@
-/* pages/mv/mv.wxss */
+/* pages/sub/mv/mv.wxss */
 .user-name {
   width: 100%;
   overflow: hidden;

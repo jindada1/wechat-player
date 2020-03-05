@@ -1,8 +1,8 @@
-// pages/mv/mv.js
+// pages/sub/mv/mv.js
 import {
   getMV,
   getComment
-} from '../../utils/api.js'
+} from '../../../utils/api.js'
 
 const global = getApp().globalData;
 

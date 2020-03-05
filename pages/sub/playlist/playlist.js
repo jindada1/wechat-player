@@ -1,9 +1,9 @@
-// pages/playlist/playlist.js
+// pages/sub/playlist/playlist.js
 const global = getApp().globalData;
 const player = global.musicPlayer;
 const db = global.DB;
 
-import Dialog from "../../miniprogram_npm/@vant/weapp/dialog/dialog";
+import Dialog from "../../../miniprogram_npm/@vant/weapp/dialog/dialog";
 
 Page({
   data: {
@@ -130,7 +130,7 @@ Page({
     mv.idforcomments = mv.mvid;
 
     wx.navigateTo({
-      url: '/pages/mv/mv?id=1',
+      url: '/pages/sub/mv/mv?id=1',
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
         res.eventChannel.emit('playMV', mv)

@@ -1,4 +1,4 @@
-<!--pages/playlist/playlist.wxml-->
+<!--pages/sub/playlist/playlist.wxml-->
 
 <van-sticky>
 	<view class="nav-area" style="height:{{navHeight}}px; padding-top:{{navTop}}px;">
