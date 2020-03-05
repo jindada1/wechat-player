@@ -13,8 +13,7 @@
 			<view class="cover-holder">
 				<van-image radius="3" width="100%" height="100%" src="{{music.cover}}" />
 				<view class="status">
-					<van-icon wx:if="{{playing}}" name="pause-circle-o" />
-					<van-icon wx:else name="play-circle-o" />
+					<van-icon wx:if="{{!playing}}" name="play-circle-o" />
 				</view>
 			</view>
 			<!-- 歌词或歌曲信息 -->

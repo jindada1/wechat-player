@@ -15,6 +15,7 @@ Page({
     taplock: false
   },
   onLoad: function () {
+    console.log('on load')
     this.setData({
       navHeight: global.nav.height,
       navTop: global.nav.top,
@@ -25,24 +26,28 @@ Page({
     let _this = this;
     eventChannel.on('getList', function (listid) {
       if (listid === 0) {
+        _this.setData({
+          listid: 0,
+          listinfo: {
+            name: '我喜欢',
+            pic: "../../../../icons/love.svg"
+          }
+        })
         db.loved((list) => {
           _this.setData({
-            playlist: list,
-            listid: 0,
-            listinfo: {
-              name: '我喜欢',
-              pic: "../../../../icons/love.svg"
-            }
+            playlist: list
           })
         })
       }
     })
   },
-  onReady: function () {
-
-  },
   onShow: function () {
-
+    if (this.data.listid == 0 && this.data.playlist)
+      db.loved((list) => {
+        this.setData({
+          playlist: list
+        })
+      })
   },
   backward() {
     var pages = getCurrentPages(); //当前页面
@@ -62,7 +67,7 @@ Page({
     player.list(this.data.playlist)
   },
   hateSong(e) {
-    if (this.data.listid === 0) { 
+    if (this.data.listid === 0) {
       //锁住
       this.setData({
         taplock: true

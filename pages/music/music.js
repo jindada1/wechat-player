@@ -12,21 +12,16 @@ Page({
     playlist_show: false,
     playlist: Array,
     current: Object,
-    currentPage: 0,
     lrcHeight: 40,
     notouch: true,
     navHeight: 40,
     navTop: 20,
-    waiting: false,
-    timeout: 3000,
-    timeout_id: Number
   },
   onLoad: function () {
 
     this.setData({
       navHeight: app.globalData.nav.height,
-      navTop: app.globalData.nav.top,
-      cmtHeight: app.globalData.window.contentHeight
+      navTop: app.globalData.nav.top
     })
 
     player.onPause(() => {
@@ -47,7 +42,9 @@ Page({
         lrcs: lrcs
       })
     })
-    this.getComments(song);
+    this.setData({
+      lovethis: db.doIlove(song)
+    })
   },
   onShow: function () {
 
@@ -59,17 +56,14 @@ Page({
         playing: player.isPlaying(),
         progress: parseInt(current.percent * 100)
       })
-
       this.initUI(current.song);
     }
-
 
     player.onListChanged = (list) => {
       this.setData({
         playlist: list
       })
     }
-
     player.onSongChanged = (song) => {
       this.setData({
         current: song,
@@ -94,45 +88,6 @@ Page({
           scrollTop: id * this.data.lrcHeight
         })
       }
-    }
-  },
-  getComments(song) {
-    if (song) {
-      getComment(song.platform, song.idforcomments, 'song').then((response) => {
-        let cmts = response.data.hot.comments.concat(response.data.normal.comments)
-        this.setData({
-          comments: cmts,
-          cmtPage: 0
-        })
-      })
-    }
-  },
-  nextCmtPage() {
-    if (this.data.comments) {
-      let song = this.data.current;
-
-      // 设置超时
-      let id = setTimeout(() => {
-        this.setData({
-          waiting: false
-        });
-      }, this.data.timeout);
-
-      // 不重复请求
-      this.setData({
-        waiting: true,
-        timeout_id: id
-      });
-
-      getComment(song.platform, song.idforcomments, 'song', this.data.cmtPage + 1).then((response) => {
-        let cmts = response.data.hot.comments.concat(response.data.normal.comments)
-        clearTimeout(this.data.timeout_id)
-        this.setData({
-          comments: this.data.comments.concat(cmts),
-          cmtPage: this.data.cmtPage + 1,
-          waiting: false
-        })
-      })
     }
   },
   control(e) {
@@ -170,13 +125,6 @@ Page({
     let song = e.currentTarget.dataset.song;
     player.playSong(song)
   },
-  swiperChange(e) {
-    if (e.detail.source) {
-      this.setData({
-        currentPage: e.detail.current
-      })
-    }
-  },
   startScroll() {
     // 当手指滚动歌词时，歌词就不必跟着进度自动滚动
     this.setData({
@@ -195,11 +143,7 @@ Page({
       });
     }, 2000);
   },
-  drag(dragging) {
-    this.slideValue = dragging.detail.value;
-
-  },
-  playMV(e) {
+  playMV() {
     // 深拷贝一个 mv ，否则会变动原来的 idforcomments
     let mv = JSON.parse(JSON.stringify(this.data.current));
     mv.idforcomments = mv.mvid;
@@ -212,7 +156,33 @@ Page({
       }
     })
   },
+  viewComments() {
+    let song = this.data.current;
+    wx.navigateTo({
+      url: '/pages/sub/comments/comments',
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('viewcmt', song)
+      }
+    })
+  },
   love() {
-    db.love(this.data.current)
+    db.love(this.data.current, (res) => {
+      if (res._id) {
+        this.setData({
+          lovethis: true
+        })
+      }
+    })
+  },
+  hate() {
+    db.hate(this.data.current, () => {
+      this.setData({
+        lovethis: false
+      })
+    })
+  },
+  drag(dragging) {
+    this.slideValue = dragging.detail.value;
   }
 })

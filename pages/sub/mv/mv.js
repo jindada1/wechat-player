@@ -9,7 +9,6 @@ const global = getApp().globalData;
 Page({
   data: {
     src: String,
-    navTop: 20,
     waiting: false,
     timeout: 3000,
     timeout_id: Number,

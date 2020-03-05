@@ -1,85 +1,54 @@
 <!--pages/music/music.wxml-->
-<view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
+<view class="nav-area" style="flex-shrink: 0; height:{{navHeight}}px; margin-top:{{navTop}}px;">
 	<view style="text-align: center; width: 100%; font-size: 14px">
 		{{current.name}}
 	</view>
-	<view class="indicator">
-		<view class="dot" style="{{currentPage === 0 ? 'background-color:gray; width: 12px' : ''}}"></view>
-		<view class="dot" style="{{currentPage === 1 ? 'background-color:gray; width: 12px' : ''}}"></view>
+</view>
+<view class="album">
+	<van-image radius="6" width="12rem" height="12rem" src="{{current.cover}}" />
+</view>
+<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
+	<view style="height: 50%"></view>
+	<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="height: {{lrcHeight}}px;{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}">
+		{{lrc.c}}
+	</view>
+	<view style="height: 50%"></view>
+</scroll-view>
+<view class="buttons" style="height:42px;flex-shrink: 0;">
+	<view class="col">
+		<van-icon wx:if="{{lovethis}}" name="like" color="red" size="24" bindtap="hate" />
+		<van-icon wx:else name="like-o" size="24" bindtap="love" />
+	</view>
+	<view class="col"></view>
+	<view class="col"></view>
+	<view class="col"></view>
+	<view class="col">
+		<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
 	</view>
 </view>
-<swiper style="height: {{cmtHeight}}px" bindchange="swiperChange">
-	<swiper-item>
-		<view class="my-page">
-			<view class="album">
-				<van-image radius="6" width="12rem" height="12rem" src="{{current.cover}}" />
-			</view>
-			<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
-				<view style="height: 50%"></view>
-				<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="height: {{lrcHeight}}px;{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}">
-					{{lrc.c}}
-				</view>
-				<view style="height: 50%"></view>
-			</scroll-view>
-			<view style="height:42px;display:flex;flex-shrink: 0;">
-				<view class="col"></view>
-				<view class="col"></view>
-				<view class="col"></view>
-				<view class="col">
-					<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
-				</view>
-			</view>
-			<view>
-				<view style="height:20px; padding: 0 10px">
-					<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="drag" bind:change="change" bind:drag-end="dragend">
-						<view class="slider-numb" slot="button"> </view>
-					</van-slider>
-				</view>
-				<view class="buttons">
-					<view class="col">
-						<van-icon name="like-o" size="24" bindtap="love" />
-					</view>
-					<view class="col">
-						<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
-					</view>
-					<view class="col">
-						<van-icon wx:if="{{playing}}" name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
-						<van-icon wx:else name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
-					</view>
-					<view class="col">
-						<van-icon name="../../../../icons/next.svg" bindtap="control" size="36" data-cmd="{{'next'}}" />
-					</view>
-					<view class="col">
-						<van-icon name="../../../../icons/list.svg" bindtap="control" size="24" data-cmd="{{'showlist'}}" />
-					</view>
-				</view>
-			</view>
-		</view>
-	</swiper-item>
-	<swiper-item>
-		<view wx:if="{{!comments.length}}" class="contain">
-			<van-loading type="spinner" size="24px">正在获取评论...</van-loading>
-		</view>
-		<scroll-view style="height: 100%" scroll-y bindscrolltolower="nextCmtPage">
-			<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
-				<van-col span="4" style="text-align: center;">
-					<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
-				</van-col>
-				<van-col span="20">
-					<view class="user-name">{{comment.username}}</view>
-					<view class="comment">{{comment.content}}</view>
-					<view class="info">{{comment.time}}
-						<view style="float:right; margin-right:10px;color:black">{{comment.stars}}
-							<van-icon name="../../../../icons/thumb.svg" size="14px" />
-						</view>
-					</view>
-				</van-col>
-				<van-divider hairline />
-			</van-row>
-			<we-loading type="circle" show="{{waiting}}"></we-loading>
-		</scroll-view>
-	</swiper-item>
-</swiper>
+<view style="height:20px; padding: 0 10px">
+	<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="drag" bind:change="change" bind:drag-end="dragend">
+		<view class="slider-numb" slot="button"> </view>
+	</van-slider>
+</view>
+<view class="buttons" style="margin: 20px 0;">
+	<view class="col">
+		<van-icon name="../../../../icons/comment.svg" bindtap="viewComments" size="20" />
+	</view>
+	<view class="col">
+		<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
+	</view>
+	<view class="col">
+		<van-icon wx:if="{{playing}}" name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+		<van-icon wx:else name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+	</view>
+	<view class="col">
+		<van-icon name="../../../../icons/next.svg" bindtap="control" size="36" data-cmd="{{'next'}}" />
+	</view>
+	<view class="col">
+		<van-icon name="../../../../icons/list.svg" bindtap="control" size="24" data-cmd="{{'showlist'}}" />
+	</view>
+</view>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
 	<view style="padding: 15px;">播放列表 - {{playlist.length || 0}} 首</view>
 	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">

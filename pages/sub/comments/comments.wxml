@@ -1,2 +1,30 @@
 <!--pages/sub/comments/comments.wxml-->
-<text>pages/sub/comments/comments.wxml</text>
+<view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;flex-shrink:0">
+	<view class="left-capsule">
+		<van-icon name="arrow-left" size="24" catchtap="backward" />
+		{{mv.name}}
+	</view>
+</view>
+<view wx:if="{{!comments.length}}" class="contain">
+	<van-loading size="24px" vertical>获取评论中...</van-loading>
+</view>
+<scroll-view class="contain" scroll-y bindscrolltolower="nextCmtPage">
+	<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
+		<van-col span="4" style="text-align: center;">
+			<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
+		</van-col>
+		<van-col span="20">
+			<view class="user-name">{{comment.username}}</view>
+			<view class="comment">{{comment.content}}</view>
+			<view class="info">{{comment.time}}
+				<view style="float:right; margin-right:10px;color:black">{{comment.stars}}
+					<van-icon name="../../../../icons/thumb.svg" size="14px" />
+				</view>
+			</view>
+		</van-col>
+		<van-divider hairline />
+	</van-row>
+	<view style="text-align: center;" wx:if="{{waiting}}">
+		<van-loading type="spinner"/>
+	</view>
+</scroll-view>

@@ -51,4 +51,8 @@
   position: absolute;
   top: 12px;
   left: 8px;
+  background-color: #ffffff99;
+  border-radius: 50%;
+  height: 15px;
+
 }

@@ -27,8 +27,8 @@ export function initDB() {
   function warn() {
     wx.showToast({
       title: '请等待',
-      icon: 'success',
-      duration: 1000
+      icon: 'loading',
+      duration: 2000
     })
   }
 
@@ -62,6 +62,7 @@ export function initDB() {
 
     // 收藏一首歌
     db.love = function (song, callback) {
+      if (get_id(song).index > -1) return
       db.collection('love').add({
           data: {
             song
@@ -127,8 +128,14 @@ export function initDB() {
     }
 
     db.doIlove = function (song) {
-      return get_id(song).index != -1;
+      if (mylovesongs.length == 0 && openid) {
+        db.loved(() => {
+          return get_id(song).index != -1;
+        })
+      } else
+        return get_id(song).index != -1;
     }
+
     return db;
   }
 
