@@ -6,8 +6,9 @@ page {
   justify-content: space-between;
 }
 
-.nav-area {
+.nav {
   display: flex;
+  flex-shrink: 0; 
   position: relative;
   align-items: center;
 }
@@ -41,6 +42,7 @@ page {
 .album {
   margin: 10% 0;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
 }

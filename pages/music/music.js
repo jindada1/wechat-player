@@ -1,8 +1,4 @@
 // pages/music/music.js
-import {
-  getComment
-} from '../../utils/api.js'
-
 const app = getApp();
 const player = app.globalData.musicPlayer;
 const db = app.globalData.DB;

@@ -1,5 +1,5 @@
 <!--pages/music/music.wxml-->
-<view class="nav-area" style="flex-shrink: 0; height:{{navHeight}}px; margin-top:{{navTop}}px;">
+<view class="nav" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
 	<view style="text-align: center; width: 100%; font-size: 14px">
 		{{current.name}}
 	</view>
