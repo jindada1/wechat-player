@@ -83,7 +83,7 @@ Page({
     }
   },
   inputChange(event) {
-    console.log(event.detail)
+    // console.log(event.detail)
   },
   Search(event) {
     let key = event.detail;

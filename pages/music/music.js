@@ -174,7 +174,7 @@ Page({
   },
   viewComments() {
     let song = this.data.current;
-    console.log('cmts')
+    // console.log('cmts')
     wx.navigateTo({
       url: '/pages/sub/comments/comments',
       success: function (res) {

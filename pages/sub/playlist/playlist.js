@@ -15,7 +15,7 @@ Page({
     taplock: false
   },
   onLoad: function () {
-    console.log('on load')
+    // console.log('on load')
     this.setData({
       navHeight: global.nav.height,
       navTop: global.nav.top,
