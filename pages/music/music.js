@@ -8,28 +8,35 @@ Page({
     playlist_show: false,
     playlist: Array,
     current: Object,
-    lrcHeight: 40,
     notouch: true,
     navHeight: 40,
     navTop: 20,
+    lyric_area_height: '',
+    lrc_line_height: 40,
+    isDraging: false
   },
   onLoad: function () {
-
     this.setData({
       navHeight: app.globalData.nav.height,
       navTop: app.globalData.nav.top
     })
-
-    player.onPause(() => {
-      this.setData({
-        playing: false
-      })
-    })
-
-    player.onPlay(() => {
-      this.setData({
-        playing: true
-      })
+  },
+  onReady() {
+    this.getHeight()
+  },
+  getHeight() {
+    const query = this.createSelectorQuery();
+    let _this = this;
+    query.select('#lyric-area').boundingClientRect()
+    query.exec(function (rect) {
+      if (rect[0].height === 0) {
+        setTimeout(() => {
+          _this.getHeight()
+        }, 1000);
+      } else
+        _this.setData({
+          lyric_area_height: rect[0].height
+        })
     })
   },
   initUI(song) {
@@ -69,9 +76,11 @@ Page({
 
     // 更新播放进度
     player.onProgressChanged = (rate) => {
-      this.setData({
-        progress: parseInt(rate * 100)
-      })
+      if (!this.data.isDraging) {
+        this.setData({
+          progress: parseInt(rate * 100)
+        })
+      }
     }
 
     // 更新歌词
@@ -81,10 +90,21 @@ Page({
       })
       if (this.data.notouch) {
         this.setData({
-          scrollTop: id * this.data.lrcHeight
+          scrollTop: (id + 1) * this.data.lrc_line_height
         })
       }
     }
+    player.onPause(() => {
+      this.setData({
+        playing: false
+      })
+    })
+
+    player.onPlay(() => {
+      this.setData({
+        playing: true
+      })
+    })
   },
   control(e) {
     let cmd = e.currentTarget.dataset.cmd;
@@ -154,6 +174,7 @@ Page({
   },
   viewComments() {
     let song = this.data.current;
+    console.log('cmts')
     wx.navigateTo({
       url: '/pages/sub/comments/comments',
       success: function (res) {
@@ -178,7 +199,19 @@ Page({
       })
     })
   },
-  drag(dragging) {
-    this.slideValue = dragging.detail.value;
+  draging(dragging) {
+    if (!this.data.isDraging)
+      this.setData({
+        isDraging: true
+      })
+  },
+  dragchange(change) {
+    this.setData({
+      isDraging: false
+    })
+    if (!this.data.playing) {
+      player.toggle();
+    }
+    player.seek((change.detail / 100) * this.data.current.interval);
   }
 })

@@ -8,12 +8,13 @@ page {
 
 .nav {
   display: flex;
-  flex-shrink: 0; 
+  flex-shrink: 0;
   position: relative;
   align-items: center;
 }
 
 .buttons {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
 }
@@ -36,7 +37,6 @@ page {
   overflow: hidden;
   line-height: 20px;
   text-align: center;
-  mask-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, hsla(0, 0%, 100%, .6) 15%, #fff 25%, #fff 75%, hsla(0, 0%, 100%, .6) 85%, hsla(0, 0%, 100%, 0));
 }
 
 .album {
@@ -50,8 +50,13 @@ page {
 .lrc-line {
   margin: 0 10px;
   overflow: hidden;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.lyric-area {
+  flex-shrink: 1;
+  overflow-y: hidden;
+  mask-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, hsla(0, 0%, 100%, .6) 15%, #fff 25%, #fff 75%, hsla(0, 0%, 100%, .6) 85%, hsla(0, 0%, 100%, 0));
 }

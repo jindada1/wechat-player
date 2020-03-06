@@ -2,13 +2,13 @@
 <view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;flex-shrink:0">
 	<view class="left-capsule">
 		<van-icon name="arrow-left" size="24" catchtap="backward" />
-		{{mv.name}}
+		{{song.name}}
 	</view>
 </view>
-<view wx:if="{{!comments.length}}" class="contain">
+<view wx:if="{{!comments.length}}" class="load">
 	<van-loading size="24px" vertical>获取评论中...</van-loading>
 </view>
-<scroll-view class="contain" scroll-y bindscrolltolower="nextCmtPage">
+<scroll-view style="height:{{cmtHeight}}px;" scroll-y bindscrolltolower="nextCmtPage">
 	<van-row wx:for="{{comments}}" wx:for-item="comment" wx:key="index" data-item="{{comment}}">
 		<van-col span="4" style="text-align: center;">
 			<van-image round width="32px" height="32px" src="{{comment.avatar}}" />
@@ -25,6 +25,6 @@
 		<van-divider hairline />
 	</van-row>
 	<view style="text-align: center;" wx:if="{{waiting}}">
-		<van-loading type="spinner"/>
+		<van-loading type="spinner" />
 	</view>
 </scroll-view>

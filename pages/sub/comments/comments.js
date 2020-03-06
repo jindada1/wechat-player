@@ -13,13 +13,15 @@ Page({
     timeout_id: Number,
     navHeight: 40,
     navTop: 20,
-    cmtPage: 0
+    cmtPage: 0,
+    cmtHeight: 400
   },
   onLoad: function () {
 
     this.setData({
       navHeight: global.nav.height,
-      navTop: global.nav.top
+      navTop: global.nav.top,
+      cmtHeight: global.window.height
     })
 
     const eventChannel = this.getOpenerEventChannel()
@@ -35,8 +37,6 @@ Page({
         })
       })
     })
-
-    global.musicPlayer.pause();
   },
   backward() {
     var pages = getCurrentPages(); //当前页面

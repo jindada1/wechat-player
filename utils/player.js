@@ -371,12 +371,20 @@ export function initPlayer() {
 
     // 删除出错歌曲
     player.onError(() => {
-      wx.showToast({
-        title: '版权限制，播放失败',
-        icon: 'none',
-        duration: 1000
-      })
-      player.delSong(current_index);
+      if (player.currentTime > 0) {
+        wx.showToast({
+          title: '卡喽~',
+          icon: 'none',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          title: '版权限制，播放失败',
+          icon: 'none',
+          duration: 1000
+        })
+        player.delSong(current_index);
+      }
     })
 
     // 正在播放时
@@ -384,7 +392,7 @@ export function initPlayer() {
       let now = player.currentTime;
 
       if (typeof player.onProgressChanged === "function") {
-        player.onProgressChanged(now / player.duration);
+        player.onProgressChanged(now / player.duration, now);
       }
 
       if (typeof player.onLyricLineChanged === "function" && _lrcs.length > 0) {
@@ -392,7 +400,7 @@ export function initPlayer() {
         let id = 0;
 
         for (let index in _lrcs) {
-          if (_lrcs[index].t < now) id = index
+          if (_lrcs[index].t < now) id = parseInt(index)
           else break;
         };
 

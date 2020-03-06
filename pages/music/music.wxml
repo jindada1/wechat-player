@@ -7,14 +7,17 @@
 <view class="album">
 	<van-image radius="6" width="12rem" height="12rem" src="{{current.cover}}" />
 </view>
-<scroll-view bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
-	<view style="height: 50%"></view>
-	<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="height: {{lrcHeight}}px;{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}">
-		{{lrc.c}}
-	</view>
-	<view style="height: 50%"></view>
-</scroll-view>
-<view class="buttons" style="height:42px;flex-shrink: 0;">
+<view class="lyric-area" id="lyric-area">
+	<scroll-view style="height:{{lyric_area_height}}px" bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
+		<view style="height: 50%"></view>
+		<view style="height: {{lrc_line_height/2}}px">{{current.name}} - {{current.artist}}</view>
+		<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}; height:{{lrc_line_height}}px">
+			{{lrc.c}}
+		</view>
+		<view style="height: 50%"></view>
+	</scroll-view>
+</view>
+<view class="buttons" style="height:42px;">
 	<view class="col">
 		<van-icon wx:if="{{lovethis}}" name="like" color="red" size="24" bindtap="hate" />
 		<van-icon wx:else name="like-o" size="24" bindtap="love" />
@@ -27,11 +30,11 @@
 	</view>
 </view>
 <view style="padding: 0 20px">
-	<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="drag" bind:change="change" bind:drag-end="dragend">
+	<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="draging" bind:change="dragchange" bind:drag-end="dragend">
 		<view class="slider-numb" slot="button"> </view>
 	</van-slider>
 </view>
-<view class="buttons" style="margin: 20px 0 30px 0;">
+<view class="buttons" style="margin: 20px 0;">
 	<view class="col">
 		<van-icon name="../../../../icons/comment.svg" bindtap="viewComments" size="20" />
 	</view>
