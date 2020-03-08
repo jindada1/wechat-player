@@ -22,13 +22,17 @@ Page({
     })
   },
   onReady() {
-    this.getHeight()
+    let _this = this;
+    setTimeout(() => {
+      _this.getHeight()
+    }, 2000);
   },
   getHeight() {
     const query = this.createSelectorQuery();
     let _this = this;
     query.select('#lyric-area').boundingClientRect()
     query.exec(function (rect) {
+      console.log(rect)
       if (rect[0].height === 0) {
         setTimeout(() => {
           _this.getHeight()
@@ -70,6 +74,7 @@ Page({
     player.onSongChanged = (song) => {
       this.setData({
         current: song,
+        scrollTop: 0
       })
       this.initUI(song)
     }
@@ -90,7 +95,7 @@ Page({
       })
       if (this.data.notouch) {
         this.setData({
-          scrollTop: (id + 1) * this.data.lrc_line_height
+          scrollTop: (parseInt(id) + 1) * this.data.lrc_line_height
         })
       }
     }
