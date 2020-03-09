@@ -6,6 +6,7 @@ const db = app.globalData.DB;
 Page({
   data: {
     playlist_show: false,
+    playlist_expand: false,
     playlist: Array,
     current: Object,
     notouch: true,
@@ -13,7 +14,12 @@ Page({
     navTop: 20,
     lyric_area_height: '',
     lrc_line_height: 40,
-    isDraging: false
+    isDraging: false,
+    pltfs: {
+      qq: 'QQ音乐',
+      wangyi: '网易云音乐',
+      kugou: '酷狗音乐'
+    }
   },
   onLoad: function () {
     this.setData({
@@ -32,7 +38,7 @@ Page({
     let _this = this;
     query.select('#lyric-area').boundingClientRect()
     query.exec(function (rect) {
-      console.log(rect)
+      // console.log(rect)
       if (rect[0].height === 0) {
         setTimeout(() => {
           _this.getHeight()
@@ -61,7 +67,9 @@ Page({
         current: current.song,
         playlist: player.list(),
         playing: player.isPlaying(),
-        progress: parseInt(current.percent * 100)
+        progress: parseInt(current.percent * 100),
+        scrollTop: (current.lrc_id + 1) * this.data.lrc_line_height,
+        currentLrc: current.lrc_id
       })
       this.initUI(current.song);
     }
@@ -122,12 +130,18 @@ Page({
       next: player.next,
       showlist: () => {
         this.setData({
-          playlist_show: true
+          playlist_show: true,
+          playlist_expand: false
         })
       },
       closelist: () => {
         this.setData({
           playlist_show: false
+        })
+      },
+      expandlist: () => {
+        this.setData({
+          playlist_expand: true
         })
       },
       seek: () => {
@@ -218,5 +232,11 @@ Page({
       player.toggle();
     }
     player.seek((change.detail / 100) * this.data.current.interval);
+  },
+  expandPlaylist() {
+
+  },
+  closePlaylist() {
+
   }
 })

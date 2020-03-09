@@ -214,12 +214,22 @@ export function initPlayer() {
 
     // 获取当前正在播放的音乐
     player.current = () => {
+
+      let now = player.currentTime;
+      let id = 0;
+
+      for (let index in _lrcs) {
+        if (_lrcs[index].t < now) id = index
+        else break;
+      };
+
       if (current_index > -1) {
         return {
           index: current_index,
           song: list[current_index],
           lrc: _lrc_index > -1 ? _lrcs[_lrc_index].c : "",
-          percent: (player.currentTime / player.duration).toFixed(3)
+          lrc_id: parseInt(id),
+          percent: (now / player.duration).toFixed(3)
         }
       }
       return null;

@@ -10,7 +10,7 @@
 <view class="lyric-area" id="lyric-area">
 	<scroll-view style="height:{{lyric_area_height}}px" bindtouchstart="startScroll" scroll-y scroll-with-animation scroll-top="{{scrollTop}}" class="lyric-container">
 		<view style="height: 50%"></view>
-		<view style="height: {{lrc_line_height/2}}px">{{current.name}} - {{current.artist}}</view>
+		<view style="height: {{lrc_line_height/2}}px">源自：{{pltfs[current.platform]}}</view>
 		<view class="lrc-line" wx:for="{{lrcs}}" wx:for-item="lrc" wx:key="t" style="{{index == currentLrc ? 'color:black; font-weight:bold;' : ''}}; height:{{lrc_line_height}}px">
 			{{lrc.c}}
 		</view>
@@ -52,8 +52,18 @@
 		<van-icon name="../../../../icons/list.svg" bindtap="control" size="24" data-cmd="{{'showlist'}}" />
 	</view>
 </view>
-<van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: 50%" bind:close="control" data-cmd="{{'closelist'}}">
-	<view style="padding: 15px;">播放列表 - {{playlist.length || 0}} 首</view>
+<van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: {{playlist_expand?100:40}}%" bind:close="control" data-cmd="{{'closelist'}}">
+	<view wx:if="{{ playlist_expand }}" class="nav" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
+		<view style="text-align: center; width: 100%; font-size: 14px">
+			{{current.name}}
+		</view>
+	</view>
+	<view class="options">
+		<view>播放列表 - {{playlist.length || 0}} 首</view>
+		<view wx:if="{{ playlist_expand }}" style="flex-grow: 1; text-align:right" bindtap="control" data-cmd="{{'closelist'}}">关闭</view>
+		<view wx:else style="flex-grow: 1; text-align:right" bindtap="control" data-cmd="{{'expandlist'}}">展开</view>
+	</view>
+
 	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">
 		<view class="no-wrap-text" slot="title">
 			<van-tag wx:if="{{!song.playable}}" type="danger">版权</van-tag>
