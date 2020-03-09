@@ -53,15 +53,18 @@
 	</view>
 </view>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: {{playlist_expand?100:40}}%" bind:close="control" data-cmd="{{'closelist'}}">
-	<view wx:if="{{ playlist_expand }}" class="nav" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
-		<view style="text-align: center; width: 100%; font-size: 14px">
-			{{current.name}}
+
+	<van-sticky wx:if="{{ playlist_expand }}">
+		<view class="nav" style="height:{{navHeight}}px; padding-top:{{navTop}}px;">
+			<view class="options">
+				<view style="margin-right: 15px" bindtap="control" data-cmd="{{'closelist'}}">关闭</view>
+				<view>播放列表 - {{playlist.length || 0}} 首</view>
+			</view>
 		</view>
-	</view>
-	<view class="options">
+	</van-sticky>
+	<view wx:else class="options">
 		<view>播放列表 - {{playlist.length || 0}} 首</view>
-		<view wx:if="{{ playlist_expand }}" style="flex-grow: 1; text-align:right" bindtap="control" data-cmd="{{'closelist'}}">关闭</view>
-		<view wx:else style="flex-grow: 1; text-align:right" bindtap="control" data-cmd="{{'expandlist'}}">展开</view>
+		<view style="flex-grow: 1; text-align:right" bindtap="control" data-cmd="{{'expandlist'}}">展开</view>
 	</view>
 
 	<van-cell wx:for="{{ playlist }}" wx:key="idforres" wx:for-item="song" label="{{song.artist}}" clickable="true" bindtap="play" data-song="{{song}}">

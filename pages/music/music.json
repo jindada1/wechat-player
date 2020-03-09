@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "van-slider": "../../miniprogram_npm/@vant/weapp/slider/index",
+    "van-sticky": "../../miniprogram_npm/@vant/weapp/sticky/index",
     "van-popup": "../../miniprogram_npm/@vant/weapp/popup/index",
     "van-image": "../../miniprogram_npm/@vant/weapp/image/index",
     "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
