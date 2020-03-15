@@ -23,3 +23,8 @@
   justify-content: center;
   flex-grow: 1;
 }
+
+.title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -23,6 +23,7 @@ Page({
       _this.setData({
         navHeight: global.nav.height,
         navTop: global.nav.top,
+        navRight: global.nav.right,
         cmtTop: global.nav.height + global.nav.top + rect.height
       })
     })

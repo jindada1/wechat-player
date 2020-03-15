@@ -1,8 +1,8 @@
 <!--pages/sub/comments/comments.wxml-->
 <view class="nav-area" style="height:{{navHeight}}px; margin-top:{{navTop}}px;flex-shrink:0">
-	<view class="left-capsule">
+	<view class="left-capsule" style="overflow: hidden; margin-right: {{navRight}}px">
 		<van-icon name="arrow-left" size="24" catchtap="backward" />
-		{{song.name}}
+		<text class="title">{{song.name}}</text>
 	</view>
 </view>
 <view wx:if="{{!comments.length}}" class="load">

@@ -4,7 +4,7 @@
 		<view>搜索MV</view>
 	</view>
 	<wxs src="../../utils/comm.wxs" module="tools" />
-	<view wx:for="{{ list }}" wx:for-item="mv" wx:key="mvid" bindtap="play" data-item="{{mv}}" hover-class="hoverd" style="padding:2px 10px;">
+	<view wx:for="{{ list }}" wx:for-item="mv" wx:key="mvid" bindtap="play" data-item="{{mv}}" hover-class="hoverd" style="padding:2px 16px;">
 	    <van-row>
 				<van-col span="14">
 					<view class="no-wrap-text" style="margin-top: 10px;">{{ mv.name }}</view>

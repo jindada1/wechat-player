@@ -21,6 +21,7 @@ Page({
     this.setData({
       navHeight: global.nav.height,
       navTop: global.nav.top,
+      navRight: global.nav.right,
       cmtHeight: global.window.height
     })
 
@@ -28,14 +29,27 @@ Page({
 
     let _this = this;
     eventChannel.on('viewcmt', function (song) {
-      getComment(song.platform, song.idforcomments, 'song').then((response) => {
-        let cmts = response.data.hot.comments.concat(response.data.normal.comments)
+      let cache = wx.getStorageSync('cmts') || false;
+      if (cache && cache.song.idforcomments === song.idforcomments) {
+        console.log('cached')
         _this.setData({
-          comments: cmts,
+          comments: cache.list,
           cmtPage: 0,
           song
         })
-      })
+      } else
+        getComment(song.platform, song.idforcomments, 'song').then((response) => {
+          let cmts = response.data.hot.comments.concat(response.data.normal.comments)
+          _this.setData({
+            comments: cmts,
+            cmtPage: 0,
+            song
+          })
+          wx.setStorageSync('cmts', {
+            list: cmts,
+            song
+          })
+        })
     })
   },
   backward() {
