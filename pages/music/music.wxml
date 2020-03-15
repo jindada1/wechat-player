@@ -1,6 +1,6 @@
 <!--pages/music/music.wxml-->
 <view class="nav" style="height:{{navHeight}}px; margin-top:{{navTop}}px;">
-	<view style="text-align: center; width: 100%; font-size: 14px">
+	<view style="text-align: center; width: 100%;">
 		{{current.name}}
 	</view>
 </view>
@@ -17,39 +17,41 @@
 		<view style="height: 50%"></view>
 	</scroll-view>
 </view>
-<view class="buttons" style="height:42px;">
-	<view class="col">
-		<van-icon wx:if="{{lovethis}}" name="like" color="red" size="24" bindtap="hate" />
-		<van-icon wx:else name="like-o" size="24" bindtap="love" />
+<view class="fixed-control-area">
+	<view class="buttons" style="height:42px;">
+		<view class="col">
+			<van-icon wx:if="{{lovethis}}" name="like" color="red" size="24" bindtap="hate" />
+			<van-icon wx:else name="like-o" size="24" bindtap="love" />
+		</view>
+		<view class="col"></view>
+		<view class="col"></view>
+		<view class="col"></view>
+		<view class="col">
+			<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
+		</view>
 	</view>
-	<view class="col"></view>
-	<view class="col"></view>
-	<view class="col"></view>
-	<view class="col">
-		<van-icon wx-if="{{current.mvid}}" name="video-o" size="24px" catchtap="playMV" />
+	<view style="padding: 0 20px">
+		<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="draging" bind:change="dragchange" bind:drag-end="dragend">
+			<view class="slider-numb" slot="button"> </view>
+		</van-slider>
 	</view>
-</view>
-<view style="padding: 0 20px">
-	<van-slider value="{{progress}}" bar-height="2px" active-color="#ee0a24" use-button-slot bind:drag="draging" bind:change="dragchange" bind:drag-end="dragend">
-		<view class="slider-numb" slot="button"> </view>
-	</van-slider>
-</view>
-<view class="buttons" style="margin: 20px 0;">
-	<view class="col">
-		<van-icon name="../../../../icons/comment.svg" bindtap="viewComments" size="20" />
-	</view>
-	<view class="col">
-		<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
-	</view>
-	<view class="col">
-		<van-icon wx:if="{{playing}}" name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
-		<van-icon wx:else name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
-	</view>
-	<view class="col">
-		<van-icon name="../../../../icons/next.svg" bindtap="control" size="36" data-cmd="{{'next'}}" />
-	</view>
-	<view class="col">
-		<van-icon name="../../../../icons/list.svg" bindtap="control" size="24" data-cmd="{{'showlist'}}" />
+	<view class="buttons" style="margin: 20px 0;">
+		<view class="col">
+			<van-icon name="../../../../icons/comment.svg" bindtap="viewComments" size="20" />
+		</view>
+		<view class="col">
+			<van-icon name="../../../../icons/prev.svg" bindtap="control" size="36" data-cmd="{{'last'}}" />
+		</view>
+		<view class="col">
+			<van-icon wx:if="{{playing}}" name="../../../../icons/pause.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+			<van-icon wx:else name="../../../../icons/play.svg" bindtap="control" size="40" data-cmd="{{'toggle'}}" />
+		</view>
+		<view class="col">
+			<van-icon name="../../../../icons/next.svg" bindtap="control" size="36" data-cmd="{{'next'}}" />
+		</view>
+		<view class="col">
+			<van-icon name="../../../../icons/list.svg" bindtap="control" size="24" data-cmd="{{'showlist'}}" />
+		</view>
 	</view>
 </view>
 <van-popup show="{{ playlist_show }}" position="bottom" custom-style="height: {{playlist_expand?100:40}}%" bind:close="control" data-cmd="{{'closelist'}}">
