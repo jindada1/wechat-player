@@ -19,6 +19,10 @@ Page({
       {
         text: '酷狗',
         value: 'kugou'
+      },
+      {
+        text: '咪咕',
+        value: 'migu'
       }
     ],
     searchKey: "",
