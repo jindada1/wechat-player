@@ -20,7 +20,7 @@
 + 观看MV
 + 收藏音乐
 
-<center class="half">
+<center float="left">
     <img src="readme/微信图片_20210312204346.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/><img src="readme/微信图片_20210312204404.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
 </center>
 
