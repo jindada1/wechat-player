@@ -33,9 +33,8 @@
 + 上下滑动查看歌词
 + 滑动进度条调整播放进度
 
-<center class="half">
-    <img src="readme/微信图片_20210312204409.jpg" width="450" /><img src="readme/微信图片_20210312204438.jpg" width="450" />
-</center>
+<img src="readme/微信图片_20210312204409.jpg" width="450" /><img src="readme/微信图片_20210312204438.jpg" width="450" />
+
 
 ### 我的
 
@@ -46,9 +45,8 @@
 + 播放全部
 + 添加到播放列表
 
-<center class="half">
-    <img src="readme/微信图片_20210312204413.jpg" width="450" /><img src="readme/微信图片_20210312204444.jpg" width="450" />
-</center>
+<img src="readme/微信图片_20210312204413.jpg" width="450" /><img src="readme/微信图片_20210312204444.jpg" width="450" />
+
 
 
 
@@ -57,6 +55,4 @@
 + 查看评论
 + 观看MV
 
-<center class="half">
-    <img src="readme/微信图片_20210312204433.jpg" width="450" /><img src="readme/微信图片_20210312212423.jpg" width="450" />
-</center>
+<img src="readme/微信图片_20210312204433.jpg" width="450" /><img src="readme/微信图片_20210312212423.jpg" width="450" />
