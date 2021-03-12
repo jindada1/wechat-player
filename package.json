@@ -13,6 +13,7 @@
   "author": "Kris",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.0.5"
+    "@vant/weapp": "^1.0.5",
+    "weui-miniprogram": "^1.0.7"
   }
 }

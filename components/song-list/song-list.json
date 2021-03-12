@@ -6,6 +6,6 @@
     "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index",
     "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
     "van-tag": "../../miniprogram_npm/@vant/weapp/tag/index",
-    "we-loading": "../../miniprogram_npm/weui/loading/loading"
+    "we-loading": "../../miniprogram_npm/weui-miniprogram/loading/loading"
   }
 }

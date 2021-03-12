@@ -1,6 +1,6 @@
 
 export const fetch = (params) => {
-  const baseUrl = "https://goldenproud.cn"
+  const baseUrl = "https://krishuang.top"
   params.url = baseUrl + params.url;
   
   return new Promise((resolve, reject)=>{

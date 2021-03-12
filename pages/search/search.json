@@ -10,6 +10,6 @@
     "song-list": "../../components/song-list/song-list",
     "mv-list": "../../components/mv-list/mv-list",
     "nav-bar": "../../components/nav-bar/nav-bar",
-    "we-loading": "../../miniprogram_npm/weui/loading/loading"
+    "we-loading": "../../miniprogram_npm/weui-miniprogram/loading/loading"
   }
 }

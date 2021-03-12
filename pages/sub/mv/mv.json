@@ -1,10 +1,10 @@
 {
   "usingComponents": {
-    "van-divider": "../../miniprogram_npm/@vant/weapp/divider/index",
-    "van-image": "../../miniprogram_npm/@vant/weapp/image/index",
-    "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
-    "van-row": "../../miniprogram_npm/@vant/weapp/row/index",
-    "van-col": "../../miniprogram_npm/@vant/weapp/col/index",
-    "we-loading": "../../miniprogram_npm/weui/loading/loading"
+    "van-divider": "../../../miniprogram_npm/@vant/weapp/divider/index",
+    "van-image": "../../../miniprogram_npm/@vant/weapp/image/index",
+    "van-icon": "../../../miniprogram_npm/@vant/weapp/icon/index",
+    "van-row": "../../../miniprogram_npm/@vant/weapp/row/index",
+    "van-col": "../../../miniprogram_npm/@vant/weapp/col/index",
+    "we-loading": "../../../miniprogram_npm/weui-miniprogram/loading/loading"
   }
 }

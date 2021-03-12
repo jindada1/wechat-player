@@ -8,7 +8,7 @@ var timeFormatter = function (seconds) {
 var changeDomain = function (url) {
   var arr = url.split("/");
   var olddomain = arr[0] + "//" + arr[2];
-  return url.replace(olddomain, 'https://goldenproud.cn/redirect/' + mv.platform) + '/';
+  return url.replace(olddomain, 'https://krishuang.top/redirect/' + mv.platform) + '/';
 }
 
 module.exports = {

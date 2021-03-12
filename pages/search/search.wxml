@@ -15,7 +15,7 @@
 	</van-row>
 	<!-- <view wx:if="{{inputing}}" id="wow" class="wow" style="height:{{wowHeight}}px"></view> -->
 </view>
-<van-tabs animated active="{{ searchType }}" bind:change="typeChange">
+<van-tabs animated active="{{ searchType }}" bind:change="typeChange" style="flex: 1;">
 	<van-tab title="音乐" name="songs" id="tab-content">
 		<song-list id="song-list" bind:nextpage="getNext"></song-list>
 		<view class="loading-area" wx:if="{{searchingSong}}">

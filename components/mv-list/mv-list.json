@@ -5,6 +5,6 @@
     "van-row": "../../miniprogram_npm/@vant/weapp/row/index",
     "van-col": "../../miniprogram_npm/@vant/weapp/col/index",
     "van-image": "../../miniprogram_npm/@vant/weapp/image/index",
-    "we-loading": "../../miniprogram_npm/weui/loading/loading"
+    "we-loading": "../../miniprogram_npm/weui-miniprogram/loading/loading"
   }
 }

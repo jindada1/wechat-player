@@ -1,9 +1,8 @@
 {
   "usingComponents": {
-    "van-dialog": "../../miniprogram_npm/@vant/weapp/dialog/index",
-    "van-sticky": "../../miniprogram_npm/@vant/weapp/sticky/index",
-    "van-image": "../../miniprogram_npm/@vant/weapp/image/index",
-    "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index",
-    "van-cell": "../../miniprogram_npm/@vant/weapp/cell/index"
+    "van-sticky": "../../../miniprogram_npm/@vant/weapp/sticky/index",
+    "van-image": "../../../miniprogram_npm/@vant/weapp/image/index",
+    "van-icon": "../../../miniprogram_npm/@vant/weapp/icon/index",
+    "van-cell": "../../../miniprogram_npm/@vant/weapp/cell/index"
   }
 }

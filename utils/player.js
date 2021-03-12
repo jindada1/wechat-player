@@ -156,7 +156,7 @@ export function initPlayer() {
   }
 
   function _listadd(song) {
-    let backend = 'https://goldenproud.cn';
+    let backend = 'https://krishuang.top';
     let keys = ['url', 'cover', 'lrc'];
 
     keys.forEach((key) => {
