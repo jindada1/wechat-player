@@ -21,8 +21,7 @@
 + 收藏音乐
 
 <center class="half">
-    <img src="readme/微信图片_20210312204346.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
-    <img src="readme/微信图片_20210312204404.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+    <img src="readme/微信图片_20210312204346.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/><img src="readme/微信图片_20210312204404.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
 </center>
 
 ### 播放
@@ -37,8 +36,7 @@
 + 滑动进度条调整播放进度
 
 <center class="half">
-    <img src="readme/微信图片_20210312204409.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
-    <img src="readme/微信图片_20210312204438.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+    <img src="readme/微信图片_20210312204409.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/><img src="readme/微信图片_20210312204438.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
 </center>
 
 ### 我的
@@ -51,8 +49,7 @@
 + 添加到播放列表
 
 <center class="half">
-    <img src="readme/微信图片_20210312204413.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
-    <img src="readme/微信图片_20210312204444.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+    <img src="readme/微信图片_20210312204413.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/><img src="readme/微信图片_20210312204444.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
 </center>
 
 
@@ -63,6 +60,5 @@
 + 观看MV
 
 <center class="half">
-    <img src="readme/微信图片_20210312204433.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
-    <img src="readme/微信图片_20210312212423.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+    <img src="readme/微信图片_20210312204433.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/><img src="readme/微信图片_20210312212423.jpg" width="350" style="margin: 0 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
 </center>
