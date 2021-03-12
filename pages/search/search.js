@@ -23,6 +23,10 @@ Page({
       {
         text: '咪咕',
         value: 'migu'
+      },
+      {
+        text: '酷我',
+        value: 'kuwo'
       }
     ],
     searchKey: "",

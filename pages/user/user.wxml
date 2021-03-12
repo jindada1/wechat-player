@@ -14,7 +14,7 @@
 
 <van-grid column-num="4" gutter="10" square="{{ true }}" clickable>
 	<van-grid-item icon="like-o"  text="我的收藏" bind:click="mylove"/>
-	<van-grid-item icon="music-o" text="其它平台" />
+	<van-grid-item icon="music-o" text="导入歌单" />
 	<van-grid-item icon="bar-chart-o" text="听歌数据" />
 	<van-grid-item icon="clock-o" text="定时关闭" />
 </van-grid>
