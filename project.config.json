@@ -37,17 +37,18 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
-    "useIsolateContext": true,
+    "useIsolateContext": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false
+    "showES6CompileOption": false,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.7.7",
   "appid": "wx3e676d38adf2254e",
-  "projectname": "WeChat",
+  "projectname": "不起眼的听歌小程序",
   "debugOptions": {
     "hidedInDevtools": []
   },
